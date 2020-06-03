@@ -1,0 +1,5 @@
+LIBRARY QwtRasterPolt
+EXPORTS
+	OpenRasterFile		@1
+	GetPlotWidget		@2
+	ReplotData			@3

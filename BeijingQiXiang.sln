@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RadarEchoTracking", "RadarEchoTracking\RadarEchoTracking.vcxproj", "{48729C8C-E26B-4C66-B227-DB1CB39D1587}"
+	ProjectSection(ProjectDependencies) = postProject
+		{021D936F-10FF-4B7B-AAE6-E173DDF22A12} = {021D936F-10FF-4B7B-AAE6-E173DDF22A12}
+		{33083EE8-70A8-4987-ADF0-CE63275196AD} = {33083EE8-70A8-4987-ADF0-CE63275196AD}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NetCDFDataProvider", "NetCDFDataProvider\NetCDFDataProvider.vcxproj", "{FD786019-C370-4EFD-8E53-44C35390E5E5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TrecAlgorithm", "TrecAlgorithm\TrecAlgorithm\TrecAlgorithm.vcxproj", "{8BE968D3-241E-4EE7-AF7A-6AF526172BFE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PaoDianProvider", "PaoDianProvider\PaoDianProvider.vcxproj", "{33083EE8-70A8-4987-ADF0-CE63275196AD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NetCDFDataProvider2", "NetCDFDataProvider2\NetCDFDataProvider2.vcxproj", "{021D936F-10FF-4B7B-AAE6-E173DDF22A12}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QwtRasterPolt", "QwtRasterPolt\QwtRasterPolt.vcxproj", "{A9E524EF-ED51-4DDF-BF7B-CFCFF99F8995}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlightPathProvider", "FlightPathProvider\FlightPathProvider.vcxproj", "{788BF1B8-00E7-4F31-9F0D-FB97F5E055C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48729C8C-E26B-4C66-B227-DB1CB39D1587}.Debug|Win32.ActiveCfg = Debug|Win32
+		{48729C8C-E26B-4C66-B227-DB1CB39D1587}.Debug|Win32.Build.0 = Debug|Win32
+		{48729C8C-E26B-4C66-B227-DB1CB39D1587}.Release|Win32.ActiveCfg = Release|Win32
+		{48729C8C-E26B-4C66-B227-DB1CB39D1587}.Release|Win32.Build.0 = Release|Win32
+		{FD786019-C370-4EFD-8E53-44C35390E5E5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FD786019-C370-4EFD-8E53-44C35390E5E5}.Debug|Win32.Build.0 = Debug|Win32
+		{FD786019-C370-4EFD-8E53-44C35390E5E5}.Release|Win32.ActiveCfg = Release|Win32
+		{FD786019-C370-4EFD-8E53-44C35390E5E5}.Release|Win32.Build.0 = Release|Win32
+		{8BE968D3-241E-4EE7-AF7A-6AF526172BFE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8BE968D3-241E-4EE7-AF7A-6AF526172BFE}.Debug|Win32.Build.0 = Debug|Win32
+		{8BE968D3-241E-4EE7-AF7A-6AF526172BFE}.Release|Win32.ActiveCfg = Release|Win32
+		{8BE968D3-241E-4EE7-AF7A-6AF526172BFE}.Release|Win32.Build.0 = Release|Win32
+		{33083EE8-70A8-4987-ADF0-CE63275196AD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{33083EE8-70A8-4987-ADF0-CE63275196AD}.Debug|Win32.Build.0 = Debug|Win32
+		{33083EE8-70A8-4987-ADF0-CE63275196AD}.Release|Win32.ActiveCfg = Release|Win32
+		{33083EE8-70A8-4987-ADF0-CE63275196AD}.Release|Win32.Build.0 = Release|Win32
+		{021D936F-10FF-4B7B-AAE6-E173DDF22A12}.Debug|Win32.ActiveCfg = Debug|Win32
+		{021D936F-10FF-4B7B-AAE6-E173DDF22A12}.Debug|Win32.Build.0 = Debug|Win32
+		{021D936F-10FF-4B7B-AAE6-E173DDF22A12}.Release|Win32.ActiveCfg = Release|Win32
+		{021D936F-10FF-4B7B-AAE6-E173DDF22A12}.Release|Win32.Build.0 = Release|Win32
+		{A9E524EF-ED51-4DDF-BF7B-CFCFF99F8995}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A9E524EF-ED51-4DDF-BF7B-CFCFF99F8995}.Debug|Win32.Build.0 = Debug|Win32
+		{A9E524EF-ED51-4DDF-BF7B-CFCFF99F8995}.Release|Win32.ActiveCfg = Release|Win32
+		{A9E524EF-ED51-4DDF-BF7B-CFCFF99F8995}.Release|Win32.Build.0 = Release|Win32
+		{788BF1B8-00E7-4F31-9F0D-FB97F5E055C4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{788BF1B8-00E7-4F31-9F0D-FB97F5E055C4}.Debug|Win32.Build.0 = Debug|Win32
+		{788BF1B8-00E7-4F31-9F0D-FB97F5E055C4}.Release|Win32.ActiveCfg = Release|Win32
+		{788BF1B8-00E7-4F31-9F0D-FB97F5E055C4}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

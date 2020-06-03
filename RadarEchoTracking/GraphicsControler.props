@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <GraphicsControler_home>E:\Project\IDP_OLD2</GraphicsControler_home>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_PropertySheetDisplayName>GraphicsControlerDebug</_PropertySheetDisplayName>
+    <IncludePath>$(GraphicsControler_home)\GraphicsControler;$(IncludePath)</IncludePath>
+    <LibraryPath>$(GraphicsControler_home)\Debug\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>GraphicsControler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="GraphicsControler_home">
+      <Value>$(GraphicsControler_home)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

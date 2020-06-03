@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ModeSettingDialog</class>
+ <widget class="QDialog" name="ModeSettingDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>632</width>
+    <height>318</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>综合设置</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>454</x>
+     <y>272</y>
+     <width>167</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>8</x>
+     <y>588</y>
+     <width>619</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>1</number>
+   </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>实时模式</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>历史模式</string>
+    </attribute>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>355</y>
+     <width>279</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>模式选择</string>
+   </property>
+   <widget class="QRadioButton" name="radioButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>18</y>
+      <width>89</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>实时模式</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_2">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>18</y>
+      <width>89</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>历史模式</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>12</x>
+     <y>342</y>
+     <width>617</width>
+     <height>219</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>跟踪设置</string>
+   </property>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>22</x>
+      <y>30</y>
+      <width>54</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>跟踪框：</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>68</x>
+      <y>24</y>
+      <width>515</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QListView" name="listView">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>104</y>
+      <width>563</width>
+      <height>107</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>22</x>
+      <y>54</y>
+      <width>561</width>
+      <height>45</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>跟踪框编辑</string>
+    </property>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>14</y>
+       <width>55</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>添加</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>68</x>
+       <y>14</y>
+       <width>49</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>修改</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_3">
+     <property name="geometry">
+      <rect>
+       <x>122</x>
+       <y>14</y>
+       <width>55</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>删除</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>326</x>
+      <y>26</y>
+      <width>273</width>
+      <height>185</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>反射率选择</string>
+    </property>
+    <widget class="QCheckBox" name="checkBox_1">
+     <property name="geometry">
+      <rect>
+       <x>58</x>
+       <y>36</y>
+       <width>39</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>-5</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_2">
+     <property name="geometry">
+      <rect>
+       <x>106</x>
+       <y>36</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_3">
+     <property name="geometry">
+      <rect>
+       <x>148</x>
+       <y>36</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>5</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_4">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>36</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>10</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_5">
+     <property name="geometry">
+      <rect>
+       <x>58</x>
+       <y>70</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>15</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_6">
+     <property name="geometry">
+      <rect>
+       <x>106</x>
+       <y>70</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>20</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_7">
+     <property name="geometry">
+      <rect>
+       <x>148</x>
+       <y>70</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>25</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_8">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>70</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>30</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_9">
+     <property name="geometry">
+      <rect>
+       <x>58</x>
+       <y>102</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>35</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_10">
+     <property name="geometry">
+      <rect>
+       <x>106</x>
+       <y>102</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>40</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_11">
+     <property name="geometry">
+      <rect>
+       <x>148</x>
+       <y>102</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>45</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_12">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>102</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>50</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_13">
+     <property name="geometry">
+      <rect>
+       <x>58</x>
+       <y>138</y>
+       <width>33</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>55</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_14">
+     <property name="geometry">
+      <rect>
+       <x>106</x>
+       <y>138</y>
+       <width>33</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>60</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_15">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>138</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>65</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_16">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>138</y>
+       <width>37</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>70</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="ApplaypushButton">
+   <property name="geometry">
+    <rect>
+     <x>376</x>
+     <y>374</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>应用</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_5">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>12</y>
+     <width>615</width>
+     <height>63</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>实时数据源</string>
+   </property>
+   <widget class="QPushButton" name="SetPathPushButton">
+    <property name="geometry">
+     <rect>
+      <x>558</x>
+      <y>20</y>
+      <width>41</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>24</x>
+      <y>20</y>
+      <width>43</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>路径：</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="PathLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>68</x>
+      <y>22</y>
+      <width>491</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_6">
+   <property name="geometry">
+    <rect>
+     <x>8</x>
+     <y>86</y>
+     <width>615</width>
+     <height>103</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>历史数据源</string>
+   </property>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>64</y>
+      <width>54</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>开始时次：</string>
+    </property>
+   </widget>
+   <widget class="QDateTimeEdit" name="dateTimeEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>63</y>
+      <width>139</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="displayFormat">
+     <string>yyyy-MM-dd HH:mm:ss</string>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="StartFilePushButton">
+    <property name="geometry">
+     <rect>
+      <x>204</x>
+      <y>63</y>
+      <width>35</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>选择</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>29</y>
+      <width>54</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>数据路径：</string>
+    </property>
+   </widget>
+   <widget class="QDateTimeEdit" name="dateTimeEdit">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>63</y>
+      <width>137</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="currentSection">
+     <enum>QDateTimeEdit::YearSection</enum>
+    </property>
+    <property name="displayFormat">
+     <string>yyyy-MM-dd HH:mm:ss</string>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="EndFilePushButton">
+    <property name="geometry">
+     <rect>
+      <x>498</x>
+      <y>63</y>
+      <width>35</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>选择</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>306</x>
+      <y>66</y>
+      <width>54</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>结束时次：</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SetPathPushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>27</y>
+      <width>41</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="PathLineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>29</y>
+      <width>491</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_7">
+   <property name="geometry">
+    <rect>
+     <x>8</x>
+     <y>196</y>
+     <width>615</width>
+     <height>55</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>跟踪结果</string>
+   </property>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>20</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>输出路径：</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="PathLineEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>72</x>
+      <y>18</y>
+      <width>491</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SetPathPushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>562</x>
+      <y>16</y>
+      <width>41</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>ModeSettingDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>ModeSettingDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

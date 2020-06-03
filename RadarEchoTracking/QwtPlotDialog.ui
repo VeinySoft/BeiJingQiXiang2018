@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QwtPlotDialogSetup</class>
+ <widget class="QDialog" name="QwtPlotDialogSetup">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>587</width>
+    <height>358</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QwtPlot" name="qwtPlot">
+   <property name="geometry">
+    <rect>
+     <x>14</x>
+     <y>20</y>
+     <width>553</width>
+     <height>321</height>
+    </rect>
+   </property>
+   <property name="canvasBackground">
+    <brush brushstyle="SolidPattern">
+     <color alpha="255">
+      <red>240</red>
+      <green>240</green>
+      <blue>240</blue>
+     </color>
+    </brush>
+   </property>
+   <property name="autoReplot">
+    <bool>false</bool>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

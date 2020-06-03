@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <PROJ4_HOME>E:\Project\proj-4.8.0</PROJ4_HOME>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IncludePath>$(PROJ4_HOME)\src;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LibraryPath>$(PROJ4_HOME)\src;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>proj.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="PROJ4_HOME">
+      <Value>$(PROJ4_HOME)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

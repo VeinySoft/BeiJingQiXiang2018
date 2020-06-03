@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <OSG_HOME>E:\Project\New_3D_SDK\OpenSceneGraph-3.2.1\</OSG_HOME>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IncludePath>$(OSG_HOME)VS2010\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LibraryPath>$(OSG_HOME)VS2010\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(OSG_INCLUDE);$(PROJ4_INCLUDE);$(GEOS_INCLUDE);$(BOOST_INCLUDE);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(OSG_LIB);$(PROJ4_LIB);$(GEOS_LIB);$(BOOST_LIB);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>osgAnimationd.lib;osgd.lib;osgDBd.lib;osgFXd.lib;osgGAd.lib;osgManipulatord.lib;osgParticled.lib;osgPresentationd.lib;osgShadowd.lib;osgSimd.lib;osgTerraind.lib;osgTextd.lib;osgUtild.lib;osgViewerd.lib;osgVolumed.lib;osgWidgetd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="OSG_HOME">
+      <Value>$(OSG_HOME)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

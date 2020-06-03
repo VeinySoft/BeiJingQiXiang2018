@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <GeosOnTheOsg_home>E:\Project\IDP_OLD2</GeosOnTheOsg_home>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IncludePath>$(GeosOnTheOsg_home)\GeosOnTheOsg;$(IncludePath)</IncludePath>
+    <LibraryPath>$(GeosOnTheOsg_home)\Release\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>GeosOnTheOsg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="GeosOnTheOsg_home">
+      <Value>$(GeosOnTheOsg_home)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

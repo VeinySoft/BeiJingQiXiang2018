@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{48729C8C-E26B-4C66-B227-DB1CB39D1587}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>RadarEchoTracking</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="BoostSheet.props" />
+    <Import Project="GDALDebug.props" />
+    <Import Project="GEOSDebug.props" />
+    <Import Project="QTDIRDebug.props" />
+    <Import Project="GeosOnTheOsgDebug.props" />
+    <Import Project="IDP_CONTROLDebug.props" />
+    <Import Project="GraphicsControler.props" />
+    <Import Project="OSGDebugPropertySheet.props" />
+    <Import Project="Proj4Debug.props" />
+    <Import Project="qwtDEBUG.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="BoostSheetRelease.props" />
+    <Import Project="GDALRelease.props" />
+    <Import Project="GeosOnTheOsgRelease.props" />
+    <Import Project="GEOSRelease.props" />
+    <Import Project="OSGRelease.props" />
+    <Import Project="QTDIRRelease.props" />
+    <Import Project="qwtRelease.props" />
+    <Import Project="IDP_CONTROLRelease.props" />
+    <Import Project="GraphicsControlerRelease.props" />
+    <Import Project="Proj4Debug.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>./GeneratedFiles;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>./GeneratedFiles;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;GRAPHICSCONTROLER_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>-Zm202 %(AdditionalOptions)</AdditionalOptions>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;GRAPHICSCONTROLER_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>-Zm178 %(AdditionalOptions)</AdditionalOptions>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="MainWindow.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="CubeSettings.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="ExportImage.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="ModeSettings.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="QwtPlotDialog.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="ListDockWidget.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="ClipNcFileImage.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="FlightAndRaster.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <None Include="icon1.ico" />
+    <CustomBuild Include="LayerDaockWidget.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="PaoDianDockWidget.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="PaoDianListDialog.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <None Include="ReadMe.txt" />
+    <CustomBuild Include="TabPlot.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="SectionDialog.ui">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConfigAccesser.h" />
+    <CustomBuild Include="CubeSettingsDialogImps.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  -f"stdafx.h" -f"../%(Filename).h" -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DGEOSONTHEOSG_LIB -DGISDBENGINE_LIB -DIDP_CONTROL_LIB -DQT_SQL_LIB -DQT_OPENGL_LIB -DGISEXTEND_IMPORT -DCDATAELEMENT_LIB -DTMUI_LIB -DGRAPHICSCONTROLER_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\qtmain" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtXml" "-I." "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtOpenGL" "-I.\..\GraphicsControler\GeneratedFiles\Release" "-I.\..\GraphicsControler\GeneratedFiles\Debug" "-I.\..\RadarStructDataProvider" "-I.\..\RadarSingleDataProvider" "-I.\..\RadarMosaicDataProvider" "-I$(GEOS_HOME)\include" "-I$(GEOS_HOME)\capi" "-I." "-I$(OSG_EARTH_INCLUDE)\." "-I$(OSG_INCLUDE)\." "-I$(PROJ4_INCLUDE)\." "-I$(GEOS_INCLUDE)\." "-I$(BOOST_INCLUDE)\." "-I$(GDAL_HOME)\include" "-I." "-I." "-I." "%(Filename).h" -o ".\GeneratedFiles\moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="DataInputSettingAction.h" />
+    <ClInclude Include="DirectStartStrackAcion.h" />
+    <ClInclude Include="DistroScaleDraw.h" />
+    <ClInclude Include="DrawClipLine.h" />
+    <ClInclude Include="DrawTrackingBoxPost.h" />
+    <ClInclude Include="ExportImageAtion.h" />
+    <CustomBuild Include="TrecCallbackImps.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe" -f"stdafx.h" -f"../%(Filename).h"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DGEOSONTHEOSG_LIB -DGISDBENGINE_LIB -DIDP_CONTROL_LIB -DQT_SQL_LIB -DQT_OPENGL_LIB -DGISEXTEND_IMPORT -DCDATAELEMENT_LIB -DTMUI_LIB -DGRAPHICSCONTROLER_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\qtmain" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtXml" "-I." "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtOpenGL" "-I.\..\GraphicsControler\GeneratedFiles\Release" "-I.\..\GraphicsControler\GeneratedFiles\Debug" "-I.\..\RadarStructDataProvider" "-I.\..\RadarSingleDataProvider" "-I.\..\RadarMosaicDataProvider" "-I$(GEOS_HOME)\include" "-I$(GEOS_HOME)\capi" "-I." "-I$(OSG_EARTH_INCLUDE)\." "-I$(OSG_INCLUDE)\." "-I$(PROJ4_INCLUDE)\." "-I$(GEOS_INCLUDE)\." "-I$(BOOST_INCLUDE)\." "-I$(GDAL_HOME)\include" "-I." "-I." "-I." "%(Filename).h" -o ".\GeneratedFiles\moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="ModeSettingDialogImps.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  -f"stdafx.h" -f"../%(Filename).h" -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DGEOSONTHEOSG_LIB -DGISDBENGINE_LIB -DIDP_CONTROL_LIB -DQT_SQL_LIB -DQT_OPENGL_LIB -DGISEXTEND_IMPORT -DCDATAELEMENT_LIB -DTMUI_LIB -DGRAPHICSCONTROLER_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\qtmain" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtXml" "-I." "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtOpenGL" "-I.\..\GraphicsControler\GeneratedFiles\Release" "-I.\..\GraphicsControler\GeneratedFiles\Debug" "-I.\..\RadarStructDataProvider" "-I.\..\RadarSingleDataProvider" "-I.\..\RadarMosaicDataProvider" "-I$(GEOS_HOME)\include" "-I$(GEOS_HOME)\capi" "-I." "-I$(OSG_EARTH_INCLUDE)\." "-I$(OSG_INCLUDE)\." "-I$(PROJ4_INCLUDE)\." "-I$(GEOS_INCLUDE)\." "-I$(BOOST_INCLUDE)\." "-I$(GDAL_HOME)\include" "-I." "-I." "-I." "%(Filename).h" -o ".\GeneratedFiles\moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <ClInclude Include="FileNameDockList.h" />
+    <ClInclude Include="FlightAndRasterWindow.h" />
+    <ClInclude Include="GeneratedFiles\ui_ClipNcFileImage.h" />
+    <ClInclude Include="GeneratedFiles\ui_CubeSettings.h" />
+    <ClInclude Include="GeneratedFiles\ui_ExportImage.h" />
+    <ClInclude Include="GeneratedFiles\ui_LayerDaockWidget.h" />
+    <ClInclude Include="GeneratedFiles\ui_ListDockWidget.h" />
+    <ClInclude Include="GeneratedFiles\ui_MainWindow.h" />
+    <CustomBuild Include="MainWindow.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe" -f"stdafx.h" -f"../%(Filename).h"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DGEOSONTHEOSG_LIB -DGISDBENGINE_LIB -DIDP_CONTROL_LIB -DQT_SQL_LIB -DQT_OPENGL_LIB -DGISEXTEND_IMPORT -DCDATAELEMENT_LIB -DTMUI_LIB -DGRAPHICSCONTROLER_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\qtmain" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtXml" "-I." "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtOpenGL" "-I.\..\GraphicsControler\GeneratedFiles\Release" "-I.\..\GraphicsControler\GeneratedFiles\Debug" "-I.\..\RadarStructDataProvider" "-I.\..\RadarSingleDataProvider" "-I.\..\RadarMosaicDataProvider" "-I$(GEOS_HOME)\include" "-I$(GEOS_HOME)\capi" "-I." "-I$(OSG_EARTH_INCLUDE)\." "-I$(OSG_INCLUDE)\." "-I$(PROJ4_INCLUDE)\." "-I$(GEOS_INCLUDE)\." "-I$(BOOST_INCLUDE)\." "-I$(GDAL_HOME)\include" "-I." "-I." "-I." "MainWindow.h" -o ".\GeneratedFiles\moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <ClInclude Include="GeneratedFiles\ui_ModeSettings.h" />
+    <ClInclude Include="GeneratedFiles\ui_PaoDianDockWidget.h" />
+    <ClInclude Include="GeneratedFiles\ui_PaoDianListDialog.h" />
+    <ClInclude Include="GeneratedFiles\ui_QwtPlotDialog.h" />
+    <ClInclude Include="GeneratedFiles\ui_SectionDialog.h" />
+    <ClInclude Include="GeneratedFiles\ui_TabPlot.h" />
+    <ClInclude Include="GetTrackBoxListImps.h" />
+    <ClInclude Include="GetTrackBoxListInterface.h" />
+    <ClInclude Include="MyActionInterface.h" />
+    <ClInclude Include="NcFileLayerDockCheckBox.h" />
+    <ClInclude Include="NextFrameAction.h" />
+    <CustomBuild Include="PaoDianDockWidget.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe" -f"stdafx.h" -f"../%(Filename).h" -f"ui_PaoDianDockWidget.h" -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DGEOSONTHEOSG_LIB -DGISDBENGINE_LIB -DIDP_CONTROL_LIB -DQT_SQL_LIB -DQT_OPENGL_LIB -DGISEXTEND_IMPORT -DCDATAELEMENT_LIB -DTMUI_LIB -DGRAPHICSCONTROLER_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\qtmain" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtXml" "-I." "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtOpenGL" "-I.\..\GraphicsControler\GeneratedFiles\Release" "-I.\..\GraphicsControler\GeneratedFiles\Debug" "-I.\..\RadarStructDataProvider" "-I.\..\RadarSingleDataProvider" "-I.\..\RadarMosaicDataProvider" "-I$(GEOS_HOME)\include" "-I$(GEOS_HOME)\capi" "-I." "-I$(OSG_EARTH_INCLUDE)\." "-I$(OSG_INCLUDE)\." "-I$(PROJ4_INCLUDE)\." "-I$(GEOS_INCLUDE)\." "-I$(BOOST_INCLUDE)\." "-I$(GDAL_HOME)\include" "-I." "-I." "-I." "%(Filename).h" -o ".\GeneratedFiles\moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="PaoDianListDialog.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe" -f"stdafx.h" -f"../%(Filename).h" -f"ui_PaoDianDockWidget.h" -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DGEOSONTHEOSG_LIB -DGISDBENGINE_LIB -DIDP_CONTROL_LIB -DQT_SQL_LIB -DQT_OPENGL_LIB -DGISEXTEND_IMPORT -DCDATAELEMENT_LIB -DTMUI_LIB -DGRAPHICSCONTROLER_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\qtmain" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtXml" "-I." "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtOpenGL" "-I.\..\GraphicsControler\GeneratedFiles\Release" "-I.\..\GraphicsControler\GeneratedFiles\Debug" "-I.\..\RadarStructDataProvider" "-I.\..\RadarSingleDataProvider" "-I.\..\RadarMosaicDataProvider" "-I$(GEOS_HOME)\include" "-I$(GEOS_HOME)\capi" "-I." "-I$(OSG_EARTH_INCLUDE)\." "-I$(OSG_INCLUDE)\." "-I$(PROJ4_INCLUDE)\." "-I$(GEOS_INCLUDE)\." "-I$(BOOST_INCLUDE)\." "-I$(GDAL_HOME)\include" "-I." "-I." "-I." "%(Filename).h" -o ".\GeneratedFiles\moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <ClInclude Include="PauseTrackingAction.h" />
+    <ClInclude Include="PlayHistoryTrackAction.h" />
+    <ClInclude Include="PrevFrameAction.h" />
+    <CustomBuild Include="QwtPlotDialogImps.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe" -f"stdafx.h" -f"../%(Filename).h" -f"ui_TabPlot.h" -f"../DistroScaleDraw.h" -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DGEOSONTHEOSG_LIB -DGISDBENGINE_LIB -DIDP_CONTROL_LIB -DQT_SQL_LIB -DQT_OPENGL_LIB -DGISEXTEND_IMPORT -DCDATAELEMENT_LIB -DTMUI_LIB -DGRAPHICSCONTROLER_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\qtmain" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtXml" "-I." "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtOpenGL" "-I.\..\GraphicsControler\GeneratedFiles\Release" "-I.\..\GraphicsControler\GeneratedFiles\Debug" "-I.\..\RadarStructDataProvider" "-I.\..\RadarSingleDataProvider" "-I.\..\RadarMosaicDataProvider" "-I$(GEOS_HOME)\include" "-I$(GEOS_HOME)\capi" "-I." "-I$(OSG_EARTH_INCLUDE)\." "-I$(OSG_INCLUDE)\." "-I$(PROJ4_INCLUDE)\." "-I$(GEOS_INCLUDE)\." "-I$(BOOST_INCLUDE)\." "-I$(GDAL_HOME)\include" "-I." "-I." "-I." "%(Filename).h" -o ".\GeneratedFiles\moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RestorePointerAction.h" />
+    <ClInclude Include="ScaleToMapAction.h" />
+    <CustomBuild Include="SectionImageDialog.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe" -f"stdafx.h" -f"../%(Filename).h" -f"ui_PaoDianDockWidget.h" -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DGEOSONTHEOSG_LIB -DGISDBENGINE_LIB -DIDP_CONTROL_LIB -DQT_SQL_LIB -DQT_OPENGL_LIB -DGISEXTEND_IMPORT -DCDATAELEMENT_LIB -DTMUI_LIB -DGRAPHICSCONTROLER_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\qtmain" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtXml" "-I." "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtOpenGL" "-I.\..\GraphicsControler\GeneratedFiles\Release" "-I.\..\GraphicsControler\GeneratedFiles\Debug" "-I.\..\RadarStructDataProvider" "-I.\..\RadarSingleDataProvider" "-I.\..\RadarMosaicDataProvider" "-I$(GEOS_HOME)\include" "-I$(GEOS_HOME)\capi" "-I." "-I$(OSG_EARTH_INCLUDE)\." "-I$(OSG_INCLUDE)\." "-I$(PROJ4_INCLUDE)\." "-I$(GEOS_INCLUDE)\." "-I$(BOOST_INCLUDE)\." "-I$(GDAL_HOME)\include" "-I." "-I." "-I." "%(Filename).h" -o ".\GeneratedFiles\moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <ClInclude Include="StartTrackingAction.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="StopTrackingAction.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TrackBoxDockList.h" />
+    <ClInclude Include="TrackBoxSettingAction.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ConfigAccesser.cpp" />
+    <ClCompile Include="CubeSettingsDialogImps.cpp" />
+    <ClCompile Include="DataInputSettingAction.cpp" />
+    <ClCompile Include="DirectStartStrackAction.cpp" />
+    <ClCompile Include="DistroScaleDraw.cpp" />
+    <ClCompile Include="DrawClipLine.cpp" />
+    <ClCompile Include="DrawTrackingBoxPost.cpp" />
+    <ClCompile Include="ExportImageAtion.cpp" />
+    <ClCompile Include="FileNameDockList.cpp" />
+    <ClCompile Include="FlightAndRasterWindow.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_CubeSettingsDialogImps.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_ModeSettingDialogImps.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_PaoDianDockWidget.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_PaoDianListDialog.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_QwtPlotDialogImps.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_SectionImageDialog.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_TrecCallbackImps.cpp" />
+    <ClCompile Include="GetTrackBoxListImps.cpp" />
+    <ClCompile Include="ModeSettingDialogImps.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_MainWindow.cpp" />
+    <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="MyActionInterface.cpp" />
+    <ClCompile Include="NcFileLayerDockCheckBox.cpp" />
+    <ClCompile Include="NextFrameAction.cpp" />
+    <ClCompile Include="PaoDianDockWidget.cpp" />
+    <ClCompile Include="PaoDianListDialog.cpp" />
+    <ClCompile Include="PauseTrackingAction.cpp" />
+    <ClCompile Include="PlayHistoryTrackAction.cpp" />
+    <ClCompile Include="PrevFrameAction.cpp" />
+    <ClCompile Include="QwtPlotDialogImps.cpp" />
+    <ClCompile Include="RadarEchoTracking.cpp" />
+    <ClCompile Include="RestorePointerAction.cpp" />
+    <ClCompile Include="ScaleToMapAction.cpp" />
+    <ClCompile Include="SectionImageDialog.cpp" />
+    <ClCompile Include="StartTrackingAction.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="StopTrackingAction.cpp" />
+    <ClCompile Include="TrackBoxDockList.cpp" />
+    <ClCompile Include="TrackBoxSettingAction.cpp" />
+    <ClCompile Include="TrecCallbackImps.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BJApp.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

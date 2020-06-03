@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <IDP_CONTROL_home>E:\Project\IDP_OLD2</IDP_CONTROL_home>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IncludePath>$(IDP_CONTROL_home)\IDP_CONTROL;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LibraryPath>$(IDP_CONTROL_home)\Debug\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>IDP_CONTROL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="IDP_CONTROL_home">
+      <Value>$(IDP_CONTROL_home)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
