@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Meteorological_Frame>
+	<FramePlugins>
+		<ProviderPlugins>
+			<Provider module = "GISDBEngine.dll"/>
+      <Provider module = "RadarSingleDataProvider.dll"/>
+      <Provider module = "RadarMosaicDataProvider.dll"/>
+      <Provider module = "GradsProvider.dll"/>
+		</ProviderPlugins>
+		<MapExtendPlugins>
+			<Extend module = "GISExtend.dll" />
+		</MapExtendPlugins>
+	</FramePlugins>
+  <ToolsGroup name="BasicTools">
+		<ToolBoxPlugins module="FrameToolBoxes.dll" factory_function="GetToolBoxesFactory"/>
+		<ControllerPlugins module="../FrameToolBoxesControler.dll" factory_function="GetControllerManager"/>
+    <ActionFactory module="FrameToolBoxes.dll" factory_function="GetActionFactory"/>
+    <DisplayViewPlugins module="FrameToolBoxes.dll" factory_function="GetDisplayViewFactory"/>
+    <TooxBoxConfig name="DefaultTooBox">
+      <Action name="OpenData" />
+      <Action name="CloseSystem" />
+    </TooxBoxConfig>
+		<ActionToControllerMap>
+			<map action = "OpenData" controller = "OpenData">
+        
+      </map>
+    </ActionToControllerMap>
+	</ToolsGroup>
+  <ToolsGroup name="MapTools">
+    <ToolBoxPlugins module="FrameToolBoxes.dll" factory_function="GetToolBoxesFactory"/>
+    <ControllerPlugins module="../FrameToolBoxesControler.dll" factory_function="GetControllerManager"/>
+    <ActionFactory module="FrameToolBoxes.dll" factory_function="GetActionFactory"/>
+    <DisplayViewPlugins module="FrameToolBoxes.dll" factory_function="GetDisplayViewFactory"/>
+    <TooxBoxConfig name="MapToolBox">
+      <Action name="DisplaySettings" />
+      <Action name="MapSettings" />
+      <Action name="AddLatLonNet" />
+      <Action name="CenterProjection" />
+      <Action name="MakeProfessionalChart" />
+      <Action name="MakeProfessionalReport" />
+    </TooxBoxConfig>
+  </ToolsGroup>
+  <ToolsGroup name="WindowTools">
+    <ToolBoxPlugins module="FrameToolBoxes.dll" factory_function="GetToolBoxesFactory"/>
+    <ControllerPlugins module="../FrameToolBoxesControler.dll" factory_function="GetControllerManager"/>
+    <ActionFactory module="FrameToolBoxes.dll" factory_function="GetActionFactory"/>
+    <DisplayViewPlugins module="FrameToolBoxes.dll" factory_function="GetDisplayViewFactory"/>
+    <TooxBoxConfig name="WindowToolBox">
+      <Action name="FloatWindow" />
+      <Action name="DockWindow" />
+      <Action name="OverlapWindow" />
+      <Action name="TileWindow" />
+      <Action name="CloseAllWindow" />
+      <Action name="SystemSettings" />
+      <Action name="SystemSettings" />
+    </TooxBoxConfig>
+  </ToolsGroup>
+  <DockWidget name="MapLayer" master_update = "true" slave_update ="true">
+    <DockWidgetPlugins module="FramePropertyBox.dll" factory_function="GetDockWidgetFactory"/>
+    <DockName name="DockLayerTree" />
+    <DockWidgetConfig name="Basic" state="init">
+      <ControllerPlugins module="../FrameToolBoxesControler.dll" factory_function="GetControllerManager"/>
+      <ActionFactory module="FramePropertyBox.dll" factory_function="GetActionFactory"/>
+      <Controller name="DockLayerTreeController">
+        <Model name="TreeViewEventModel" type="TreeModel"></Model>
+      </Controller>
+      <ToolsAction>
+        <Action name="AddBasicAction"/>
+        <Action name="DeleteLayerAction"/>
+        <Action name="MoveUpAction"/>
+        <Action name="MoveDownAction"/>
+      </ToolsAction>
+      <ContextMenuAction>
+        <Action name="ShowLayerPropertyAction"/>
+        <Action name="ShowLayerAction"/>
+        <Action name="HideLayerAction"/>
+      </ContextMenuAction>
+      <ActionToControllerMap>
+        <map action = "" controller = "">
+
+        </map>
+      </ActionToControllerMap>
+    </DockWidgetConfig>
+    <!--DockWidgetConfig state="rard">
+      <ControllerPlugins module="" factory_function=""/>
+      <ToolsAction>
+        <Action name=""/>
+      </ToolsAction>
+      <ContextMenuAction>
+        <Action name=""/>
+      </ContextMenuAction>
+      <ActionToControllerMap>
+        <map action = "" controller = "">
+
+        </map>
+      </ActionToControllerMap>
+    </DockWidgetConfig-->
+  </DockWidget>
+  <DockWidget name="LayerAttribute" slave_update = "true">
+    <DockWidgetPlugins module="FramePropertyBox.dll" factory_function="GetDockWidgetFactory"/>
+    <DockName name="DockLayerAttribute" />
+    <DockWidgetConfig name="Basic" state="init">
+    </DockWidgetConfig>
+  </DockWidget>
+  <!--UpdateEvent>
+     <DockWidget factory_name="MapLayer" dock_name = "DockLayerTree"/>
+     <DockWidget factory_name="LayerAttribute" dock_name = "DockLayerAttribute"/>
+  </UpdateEvent-->
+  <UpdateMap>
+    <MapGroup>
+      <Master name = "class.MainFrameWindow">
+        <Slave name = "MapLayer"/>
+      </Master>
+    </MapGroup>
+    <MapGroup>
+      <Master name ="MapLayer">
+        <Slave name ="LayerAttribute"/>
+      </Master>
+    </MapGroup>
+  </UpdateMap>
+</Meteorological_Frame>

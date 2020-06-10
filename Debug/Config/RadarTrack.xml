@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllConfig>
+    <mode type="0"/>
+    <datatime end="2017-07-07 17:54:05" start="2017-07-07 11:00:05"/>
+    <file_path value="E:\Project\Data\2019-11-29"/>
+    <file_path2 value="E:\ProjectData\BejingRadar\20170707"/>
+    <file_path3 value="E:\Project\BeijingQiXiang\Debug"/>
+    <track_cube>
+        <cube listNum="0" left_top_lon="115.333" point2X="-1.07374e+08" height_down="500" point1X="-1.07374e+08" point2Y="-1.07374e+08" point1Y="-1.07374e+08" heightMax="-5" height="500" right_bottom_lon="115.831" height_up="500" name="20191129113605-b" left_top_lat="39.2734" right_bottom_lat="37.9248" used="1" volumeMax="-5">
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+        </cube>
+        <cube listNum="0" left_top_lon="117.046" point2X="-1.07374e+08" height_down="500" point1X="-1.07374e+08" point2Y="-1.07374e+08" point1Y="-1.07374e+08" heightMax="-5" height="500" right_bottom_lon="118.078" height_up="500" name="20200609163304-b" left_top_lat="40.4269" right_bottom_lat="39.6463" used="1" volumeMax="-5">
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+            <value enable="0"/>
+        </cube>
+    </track_cube>
+    <exprot width="800" height="600" type=".bmp"/>
+</AllConfig>

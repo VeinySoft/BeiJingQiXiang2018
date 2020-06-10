@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConfigMap>
+    <Info mapname="中国地图" shpname="Provices_p.shp" red="0.329412" green="0.329412" blue="0" wvalue="1" plolygontype="1" layerz="0.4" checked="1" width="1" ztipple="0xFFFF" hascontroler="1" isrender="5641.3806" notrender="13302.083"/>
+    <Info mapname="中国首都" shpname="res_4_beijing.shp" red="0.1" green="0.1" blue="0.1" wvalue="1" plolygontype="1" layerz="0.4" checked="1" width="1" ztipple="0xFFFF" hascontroler="1" isrender="5641.3806" notrender="13302.083"/>
+    <Info mapname="中国省会" shpname="res_4_no_beijing.shp" red="0.303" green="0.303" blue="0.303" wvalue="1" plolygontype="1" layerz="0.4" checked="1" width="1" ztipple="0xFFFF" hascontroler="1" isrender="5641.3806" notrender="13302.083"/>
+    <Info mapname="一级河流" shpname="yijiheliu.shp" red="0" green="0" blue="1" wvalue="1" plolygontype="2" layerz="0.4" checked="0" width="1" ztipple="0xFFFF" hascontroler="1" isrender="5641.3806" notrender="13302.083"/>
+    <Info mapname="二级河流" shpname="erjiheliu.shp" red="0" green="0" blue="1" wvalue="1" plolygontype="2" layerz="0.4" checked="0" width="1" ztipple="0xFFFF" hascontroler="1" isrender="5641.3806" notrender="13302.083"/>
+    <Info mapname="国界线" shpname="bou_4.shp" red="0.329412" green="0.329412" blue="0" wvalue="1" plolygontype="1" layerz="0.4" checked="0" width="2" ztipple="0xFFFF" hascontroler="0" isrender="" notrender=""/>
+    <!--Info mapname="中国省份" shpname="County_p.shp" red="0.129412" green="0.564706" blue="0.619608" wvalue="1" plolygontype="1" layerz="0.5" checked="1" width="1" ztipple="0xFFFF" hascontroler="1" isrender="547.3261" notrender="1045.3588"/-->
+</ConfigMap>

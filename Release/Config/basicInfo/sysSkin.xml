@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MicapsData>
+  <AItem name="系统风格"  alias ="Skin" icon=":/images/settingToolBar/skin.png">
+    <BItem name="默认风格" alias="Default"	filetype="1"  path="/skin/default.qss"		 value="默认风格" icon=""/>
+    <BItem name="淡蓝色"  alias="Light_Blue"	filetype="1" path="/skin/light_blue.qss"	 value="淡蓝色" icon=""/>
+    <BItem name="深蓝色"  alias="Dark_Blue"	filetype="1" path="/skin/navy_blue.qss"	 value="深蓝色" icon=""/>
+    <BItem name="淡青色"  alias="Cyan"	filetype="1" path="/skin/cyan.qss"	 value="淡青色" icon=""/>
+    <BItem name="橙色" 	  alias="Orange" filetype="1" path="/skin/orange.qss"	 value="橙色" icon=""/>
+    <BItem name="淡绿色"  alias="Light_Green"	filetype="1" path="/skin/light_green.qss" value="淡绿色" icon=""/>
+  </AItem>
+</MicapsData>

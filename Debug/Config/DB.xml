@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<db>
+	<item value="radprod" name="dbName"/>
+	<item value="10.12.10.168" name="host"/>
+	<item value="root" name="user"/>
+	<item value="root" name="passwd"/>
+	<item value="3306" name="port"/>
+	<item value="DRIVER={Microsoft Access Driver (*.mdb)};FIL={MS Access};DBQ=D:/radprod.mdb;" name="dsn"/>
+</db>

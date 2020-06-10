@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllConfig>
+    <mode type="0"/>
+    <datatime end="2003-12-1 12:12:12" start="2003-12-1 12:12:12"/>
+    <file_path value="C:/aa.txt"/>
+    <track_cube>
+        <cube left_top_lon="12" height="3000" right_bottom_lon="14" name="111" left_top_lat="13" right_bottom_lat="15" used="1"/>
+    </track_cube>
+    <exprot width="800" height="600" type=".bmp"/>
+    <display>
+        <ratio enable="1"/>
+        <water enable="1"/>
+        <precipitation enable="1"/>
+    </display>
+</AllConfig>

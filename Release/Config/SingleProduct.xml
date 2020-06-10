@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<body xmlns="http://www.w3.org/1999/xhtml" version="2.3.0.1">
+<table name="单站产品" border="1">
+  <tr>
+    <td class="int">产品号</td>
+    <td class="string">产品缩写</td>
+    <td class="string">汉名</td>
+    <td class="string">数据单位</td>
+  </tr>
+  <tr>
+    <td class="int">251</td>
+    <td class="string">R</td>
+    <td class="string">基本反射率</td>
+    <td class="string">dBZ</td>
+  </tr>
+  <tr>
+    <td class="int">252</td>
+    <td class="string">QR</td>
+    <td class="string">经质量控制的基本反射率</td>
+    <td class="string">dBZ</td>
+  </tr>
+  <tr>
+    <td class="int">254</td>
+    <td class="string">V</td>
+    <td class="string">基本速度</td>
+    <td class="string">m/s</td>
+  </tr>
+  <tr>
+    <td class="int">255</td>
+    <td class="string">QV</td>
+    <td class="string">经质量控制的基本速度</td>
+    <td class="string">dBZ</td>
+  </tr>
+  <tr>
+    <td class="int">256</td>
+    <td class="string">W</td>
+    <td class="string">基本谱宽</td>
+    <td class="string">m/s</td>
+  </tr>
+  <tr>
+    <td class="int">257</td>
+    <td class="string">QW</td>
+    <td class="string">经质量控制的基本谱宽</td>
+    <td class="string">dBZ</td>
+  </tr>
+  <tr>
+    <td class="int">258</td>
+    <td class="string">CAP</td>
+    <td class="string">等高面反射率</td>
+    <td class="string">dBZ</td>
+  </tr>
+  <tr>
+    <td class="int">262</td>
+    <td class="string">HBR</td>
+    <td class="string">混合扫描反射率</td>
+    <td class="string">dBZ</td>
+  </tr>
+  <tr>
+    <td class="int">263</td>
+    <td class="string">CR</td>
+    <td class="string">组合反射率</td>
+    <td class="string">dBZ</td>
+  </tr>
+  <tr>
+    <td class="int">264</td>
+    <td class="string">CRH</td>
+    <td class="string">最大反射率高度</td>
+    <td class="string">km</td>
+  </tr>
+  <tr>
+    <td class="int">265</td>
+    <td class="string">ET</td>
+    <td class="string">回波顶高</td>
+    <td class="string">km</td>
+  </tr>
+  <tr>
+    <td class="int">266</td>
+    <td class="string">VIL</td>
+    <td class="string">垂直累积液态水含量</td>
+    <td class="string">kg/(m**2)</td>
+  </tr>
+  <tr>
+    <td class="int">267</td>
+    <td class="string">VILD</td>
+    <td class="string">垂直累积液态水密度</td>
+    <td class="string">g/(m**3)</td>
+  </tr>
+  <tr>
+    <td class="int">268</td>
+    <td class="string">VAD</td>
+    <td class="string">速度方位显示</td>
+    <td class="string"></td>
+  </tr>
+  <tr>
+    <td class="int">269</td>
+    <td class="string">VWP</td>
+    <td class="string">VAD风廓线</td>
+    <td class="string"></td>
+  </tr>
+  <tr>
+    <td class="int">270</td>
+    <td class="string">QPR</td>
+    <td class="string">降水率估计</td>
+    <td class="string">mm/hr</td>
+  </tr>
+  <tr>
+    <td class="int">271</td>
+    <td class="string">OHP</td>
+    <td class="string">一小时累积降水</td>
+    <td class="string">mm</td>
+  </tr>
+  <tr>
+    <td class="int">272</td>
+    <td class="string">WHP</td>
+    <td class="string">两小时累积降水</td>
+    <td class="string">mm</td>
+  </tr>
+  <tr>
+    <td class="int">273</td>
+    <td class="string">THP</td>
+    <td class="string">三小时累积降水</td>
+    <td class="string">mm</td>
+  </tr>
+  <tr>
+    <td class="int">274</td>
+    <td class="string">SHP</td>
+    <td class="string">六小时累积降水</td>
+    <td class="string">mm</td>
+  </tr>
+  <tr>
+    <td class="int">277</td>
+    <td class="string">SCI</td>
+    <td class="string">风暴识别</td>
+    <td class="string"></td>
+  </tr> 
+    <tr>
+    <td class="int">280</td>
+    <td class="string">LRM</td>
+    <td class="string">分层组合反射率</td>
+    <td class="string">dBZ</td>
+  </tr>
+  <tr>
+    <td class="int">281</td>
+    <td class="string">SBT</td>
+    <td class="string">风暴轮廓识别跟踪</td>
+    <td class="string"></td>
+  </tr>
+  <tr>
+    <td class="int">282</td>
+    <td class="string">OSR</td>
+    <td class="string">一小时强回波</td>
+    <td class="string">dBZ</td>
+  </tr>
+    <tr>
+    <td class="int">283</td>
+    <td class="string">WSR</td>
+    <td class="string">两小时强回波</td>
+    <td class="string">dBZ</td>
+  </tr>
+    <tr>
+    <td class="int">284</td>
+    <td class="string">TSR</td>
+    <td class="string">三小时强回波</td>
+    <td class="string">dBZ</td>
+  </tr>
+  <tr>
+    <td class="int">285</td>
+    <td class="string">EVP</td>
+    <td class="string">扩展速度方位显示廓线</td>
+    <td class="string"></td>
+  </tr> 
+    <tr>
+    <td class="int">291</td>
+    <td class="string">HI</td>
+    <td class="string">冰雹指数</td>
+    <td class="string"></td>
+  </tr> 
+    <tr>
+    <td class="int">292</td>
+    <td class="string">M</td>
+    <td class="string">中尺度气旋</td>
+    <td class="string"></td>
+  </tr>
+  <tr>
+    <td class="int">293</td>
+    <td class="string">TVS</td>
+    <td class="string">龙卷涡旋</td>
+    <td class="string"></td>
+  </tr>
+    <tr>
+    <td class="int">294</td>
+    <td class="string">CS</td>
+    <td class="string">组合切变</td>
+    <td class="string">1/s</td>
+  </tr> 
+    <tr>
+    <td class="int">295</td>
+    <td class="string">VILT</td>
+    <td class="string">零度层以上垂直累积液态水含量</td>
+    <td class="string"></td>
+  </tr>
+    <tr>
+    <td class="int">296</td>
+    <td class="string">VILB</td>
+    <td class="string">零度层以下垂直累积液态水含量</td>
+    <td class="string"></td>
+  </tr>
+     <tr>
+    <td class="int">297</td>
+    <td class="string">KOP</td>
+    <td class="string">雨量计订正一小时累积降水</td>
+    <td class="string">mm</td>
+  </tr> 
+     <tr>
+    <td class="int">298</td>
+    <td class="string">KWP</td>
+    <td class="string">雨量计订正两小时累积降水</td>
+    <td class="string">mm</td>
+  </tr> 
+     <tr>
+    <td class="int">299</td>
+    <td class="string">KTP</td>
+    <td class="string">雨量计订正三小时累积降水</td>
+    <td class="string">mm</td>
+  </tr> 
+     <tr>
+    <td class="int">300</td>
+    <td class="string">KSP</td>
+    <td class="string">雨量计订正六小时累积降水</td>
+    <td class="string">mm</td>
+  </tr> 
+  <tr>
+    <td class="int">301</td>
+    <td class="string">IW</td>
+    <td class="string">逆风区</td>
+    <td class="string">m/s</td>
+  </tr> 
+</table>
+</body>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConfigDLL>
+	<Info suffixName= "NC"     DllName = "NETCDF"></Info>
+	<Info suffixName = "GRIB1"  DllName = "GRIB"></Info>
+	<Info suffixName = "GRIB2"  DllName = "GRIB"></Info>
+	<Info suffixName = "GRB1"   DllName = "GRIB"></Info>
+	<Info suffixName = "GRB2"   DllName = "GRIB"></Info>
+	<Info suffixName = "TMS"    DllName = "EXPONENT"></Info>
+	<Info suffixName = "CTL"    DllName = "CTL"></Info>
+</ConfigDLL>

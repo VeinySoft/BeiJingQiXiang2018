@@ -1,0 +1,14 @@
+<AllConfig>
+  <mode type=""/>
+  <file_path value=""/>
+  <datatime start="" end=""/>
+  <track_cube>
+    <cube name="" height="" used="" left_top_lon="" left_top_lat="" right_bottom_lon="" right_bottom_lat=""/>
+  </track_cube>
+  <exprot type="" width="" height=""/>
+  <display>
+    <ratio enable=""/>
+    <water enable=""/>
+    <precipitation enable=""/>
+  </display>
+</AllConfig>

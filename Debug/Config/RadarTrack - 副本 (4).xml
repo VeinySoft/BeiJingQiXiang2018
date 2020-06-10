@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllConfig>
+    <mode type="1"/>
+    <datatime end="2015-08-07 12:54:00" start="2015-08-07 10:00:00"/>
+    <file_path value="E:\ProjectData\BejingRadar\20150807nc"/>
+    <track_cube>
+      <cube left_top_lon="114.439" height_down="3000" height="3000" right_bottom_lon="115.053" height_up="4500" name="test" left_top_lat="40.7487" right_bottom_lat="40.1503" used="1">
+        <display>
+          <value enable="0"/>
+          <value enable="0"/>
+          <value enable="0"/>
+          <value enable="0"/>
+          <value enable="0"/>
+          <value enable="0"/>
+          <value enable="2"/>
+          <value enable="2"/>
+          <value enable="2"/>
+          <value enable="2"/>
+          <value enable="2"/>
+          <value enable="0"/>
+          <value enable="0"/>
+          <value enable="0"/>
+          <value enable="0"/>
+          <value enable="0"/>
+        </display>
+      </cube>
+    </track_cube>
+    <exprot width="800" height="600" type=".bmp"/>
+</AllConfig>

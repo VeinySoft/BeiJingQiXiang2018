@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map_project_configure proj_name="默认模板" style_name="无" scale="10889.5" background_color="5614335" are_name="世界" Ytrans="-4.20255e+06" Xtrans="7.56546e+06">
+  <Info layer_text_font_strike_out="0" layer_name="Beijing" layer_text_font_bold="0" layer_line_width="1" layer_text_color="4278190080" notrender="13302.1" layer_text_font_famliy="宋体" layer_text_font_italic="0" plolygontype="1" layer_text_font_kerning="1" layer_text_font_point_size="20" layerz="20" hascontroler="1" layer_line_patter="-1" layer_text_font_under_line="0" layer_line_factor="1" shpname="./GEO/BasicGEO/bj.shp" isrender="13302.1" layer_color="4278190080" checked="1" showFiedName="NAME" />
+  <Info layer_text_font_strike_out="0" layer_name="HeBei" layer_text_font_bold="0" layer_line_width="1" layer_text_color="4278190080" notrender="13302.1" layer_text_font_famliy="宋体" layer_text_font_italic="0" plolygontype="1" layer_text_font_kerning="1" layer_text_font_point_size="20" layerz="10" hascontroler="1" layer_line_patter="-1" layer_text_font_under_line="0" layer_line_factor="1" shpname="./GEO/BasicGEO/hb.shp" isrender="13302.1" layer_color="4278190080" checked="1" showFiedName="NAME" />
+
+  <proj_info name="E" src="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs" dst="+proj=eqc +lat_ts=0 +lat_0=-3 +lon_0=180 +x_0=0 +y_0=0 +a=6378140 +b=6356755.288157528 +units=m +no_defs"/>
+    <default_mode default_win="new" default_map="_2D" />
+</map_project_configure>

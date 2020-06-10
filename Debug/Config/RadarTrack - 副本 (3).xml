@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllConfig>
+    <mode type="1"/>
+    <datatime end="2015-06-29 22:08:00" start="2015-06-29 21:36:00"/>
+    <file_path value="E:/ProjectData/BejingRadar"/>
+    <track_cube>
+        <cube left_top_lon="116.243" height="4000" right_bottom_lon="116.640" name="test" left_top_lat="39.3399" right_bottom_lat="39.7261" used="1" height_down="3000" height_up="5000"/>
+    </track_cube>
+    <exprot width="800" height="600" type=".bmp"/>
+    <display>
+        <ratio enable="1"/>
+        <water enable="1"/>
+        <precipitation enable="1"/>
+    </display>
+</AllConfig>

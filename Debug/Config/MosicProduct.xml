@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<body xmlns="http://www.w3.org/1999/xhtml" version="2.3.0.1">
+<table name="组网产品" border="1">
+<tr>
+<td class="int">产品号</td>
+<td class="string">产品缩写</td>
+<td class="string">汉名</td>
+<td class="string">数据单位</td>
+</tr>
+<tr>
+<td class="int">501</td>
+<td class="string">BREF</td>
+<td class="string">组网基本反射率</td>
+<td class="string">dBZ</td>
+</tr>
+  <tr>
+     <td class="int">502</td> 
+     <td class="string">CREF</td>
+    <td class="string">组网组合反射率</td>
+    <td class="string">dBZ</td>
+ </tr> 
+ <tr> 
+    <td class="int">503</td>
+    <td class="string">MVIL</td>
+    <td class="string">组网垂直累积液态水含量</td>
+    <td class="string">kg/(m**2)</td>
+  </tr>
+  <tr> 
+    <td class="int">504</td>
+    <td class="string">MVILD</td>
+    <td class="string">组网垂直累积液态水密度</td>
+    <td class="string">g/(m**3)</td>
+  </tr>
+    <tr> 
+    <td class="int">505</td>
+    <td class="string">PSP</td>
+    <td class="string">增雨潜力分析</td>
+    <td class="string"> </td>
+  </tr>
+    <tr> 
+    <td class="int">506</td>
+    <td class="string">HM</td>
+    <td class="string">消雹</td>
+    <td class="string">dBZ</td>
+  </tr>
+    <tr> 
+    <td class="int">507</td>
+    <td class="string">MET</td>
+    <td class="string">回波顶高</td>
+    <td class="string">km</td>
+  </tr>
+  
+</table>
+</body>
