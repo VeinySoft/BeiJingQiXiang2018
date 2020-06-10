@@ -77,7 +77,7 @@ RasterPlot::RasterPlot( QWidget *parent ):
 	//m_pCurveSimulation->attach(this);
 }
 
-void RasterPlot::DrawPlot()
+void RasterPlot::DrawPlot(const double& dMinX, const double& dMaxX, const double& dIntervalX, const double& dMinY, const double& dMaxY, const double& dIntervalY)
 {
 	QwtPlotCanvas *canvas = new QwtPlotCanvas();
 	canvas->setBorderRadius(10);
@@ -115,14 +115,14 @@ void RasterPlot::DrawPlot()
 
 	QwtDateScaleEngine *scaleEngine = new QwtDateScaleEngine(Qt::UTC);
 	
-	setAxisScaleDraw(QwtPlot::xBottom, timeScaleDraw);
+	//setAxisScaleDraw(QwtPlot::xBottom, timeScaleDraw);
 	setAxisScaleEngine(QwtPlot::xBottom, scaleEngine);
 
 	//setAxisLabelRotation(QwtPlot::xBottom, -50.0);
 	setAxisLabelAlignment(QwtPlot::xBottom, Qt::AlignCenter);
-	setAxisScale(QwtPlot::xBottom, 0, 150.0, 30);
+	setAxisScale(QwtPlot::xBottom, dMinX, dMaxX, dIntervalX);
 	setAxisMaxMinor(QwtPlot::xBottom, 1);
-	setAxisScale(QwtPlot::yLeft, 0.0, 15.0, 1.0);
+	setAxisScale(QwtPlot::yLeft, dMinY, dMaxY, dIntervalY);
 	setAxisMaxMinor(QwtPlot::yLeft, 0);
 
 	QwtPlotMagnifier *magnifier = new QwtPlotMagnifier(canvas);

@@ -15,6 +15,8 @@ class QwtPlotDialogImps;
 class QwtScaleDraw;
 class MainWindow;
 class DrawClipLine;
+class FlightPathControler;
+class FlightAndRasterWindow;
 
 class MySlaveThread : public QThread
 {
@@ -64,6 +66,7 @@ public:
 	~MainWindow(void);
 	void LoadBusinessFeature();
 	void TransformData();
+	void InitRasterWindow();
 	void SetUpActions(QToolBar* pToolBar);
 	inline void SwitchDefalultMaipulator(){
 		m_keySwitchMaipulator->selectMatrixManipulator(0);
@@ -77,6 +80,7 @@ public:
 		m_pTrackBoxSettingAction->setChecked(true);
 	}
 	void LoadPaoDian();
+	FlightPathControler* LoadFlightPath(const QString& fileName);
 	inline void SetHandCursor(){
 		QPixmap pix("./icon/hand.png");
 		m_pViewerQT->setCursor(Qt::WaitCursor);}
@@ -100,6 +104,7 @@ public:
 	int StartTrack2();
 	void StartReplay();
 	void DisplayPlot();
+	void ExportRegionData();
 	void GetSelectTrackBoxList(QVector<cube_data>& boxList);
 	int GetTrackFileID(QPair<QString, QString>& filePair, int iType = 0);
 	QString& GetTrackFilePath(const QString& strID);
@@ -119,6 +124,8 @@ public:
 	inline void ReplayStrack(){m_TrackState = MainWindow::REPLAY;}
 	inline void Lock(){m_ResultMutex.lock();}
 	inline void Unlock(){m_ResultMutex.unlock();}
+	inline ControlorInterface* GetControlorInterface(){return m_pControlorInterface;}
+
 	void FillSelectList(int iType = 0);
 	void FlushPlotAixsMark();
 
@@ -145,7 +152,7 @@ public:
 	void CopyTrackBox();
 signals:
 	void signal_InsertFile(const QString& fileBase);
-
+	void signal_SelectFiles(const QStringList& fileNames);
 public Q_SLOTS:
 	void slot_ActionTriggered( QAction* action );
 	void slot_TrecDone(QStringList& fileList, QString& strCubeName, P_TREC_NC_MAP_OUT pOutMap);
@@ -155,6 +162,7 @@ public Q_SLOTS:
 	void slot_SelectLayer(int index);
 	void slot_doubleClicked(const QModelIndex& index);
 	void slot_TrackListClicked(const QModelIndex& index);
+	void slot_NameListClicked(const QModelIndex& index);
 	void slot_StopTrack();
 	void slot_DeleteBox(bool);
 	void slot_CopyBox(bool);
@@ -215,6 +223,8 @@ private:
 	QAction* m_pAutoStartToTrack;
 	QAction* m_pAccordingPaoDianToTrackBoxAtion;
 	QAction* m_pMoveTrackBoxAction;
+	QAction* m_pExportRegionDataAction;
+	QAction* m_pOpenFlightPathAction;
 
 	osg::ref_ptr<osgGA::KeySwitchMatrixManipulator> m_keySwitchMaipulator;
 	osg::ref_ptr<DrawGeometryManipulator> m_pDrawRectMainpulator;
@@ -235,6 +245,7 @@ private:
 	PaoDianDockWidget* m_PaoDianDockWidget;
 	ControlorInterface* m_pControlorInterface;
 	SetCubesInterface* m_pSetCubesInterface;
+	FlightPathControler* m_FlightPathControler;
 	QStandardItemModel* m_pFileListItemModel;
 	QStandardItemModel* m_pTrackBoxItemModel;
 	QMap<QString, QString> m_FileBaseMapToFilePath;
@@ -300,5 +311,6 @@ private:
 	int m_iCurrentLayer;
 	bool m_bAutoSaveResult;
 	QProgressDialog* m_pProgressDlg;
+	FlightAndRasterWindow* m_pRasterWindow;
 };
 

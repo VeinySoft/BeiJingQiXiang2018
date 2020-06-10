@@ -9,7 +9,7 @@ public:
 	void SetColorMap(QwtColorMap* pColorMap);
 	inline void SetAxisColorMap(QwtColorMap* pColorMap) { m_pAxisColorMap = pColorMap; }
 
-	void DrawPlot();
+	void DrawPlot(const double& dMinX, const double& dMaxX, const double& dIntervalX, const double& dMinY, const double& dMaxY, const double& dIntervalY);
 	inline void SetStartDateTime(const QDateTime& t) { m_StartDateTime = t; }
 	void showInfo(QString text);
 	inline void SetValueSetp(float fS) { m_fYAxisSetp = fS; }

@@ -20,7 +20,7 @@ bool FlightPathProvider::LoadFile(const std::string& filename)
 	{
 		QString strLine = ts.readLine();
 		QStringList strDataList = strLine.split(',');
-		if(strDataList.length() != 5) return false;
+		if(strDataList.length() < 5) return false;
 		m_strDataList.push_back(strDataList[0].simplified());
 		m_strTimeList.push_back(strDataList[1].simplified());
 

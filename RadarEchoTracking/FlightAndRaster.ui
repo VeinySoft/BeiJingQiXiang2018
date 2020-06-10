@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1080</width>
-    <height>729</height>
+    <height>817</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,13 +23,282 @@
       <property name="margin">
        <number>2</number>
       </property>
-      <item row="4" column="1">
-       <widget class="QDateTimeEdit" name="dateTimeEdit"/>
+      <item row="1" column="0" colspan="2">
+       <widget class="QListWidget" name="DateTimeListWidget">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>280</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>1000000</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::MultiSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+       </widget>
       </item>
-      <item row="5" column="1">
-       <widget class="QDateTimeEdit" name="dateTimeEdit_2"/>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>轨迹-&gt;数据:</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="2" rowspan="6">
+      <item row="2" column="0" colspan="2">
+       <widget class="QToolBox" name="toolBox">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>250</height>
+         </size>
+        </property>
+        <property name="currentIndex">
+         <number>1</number>
+        </property>
+        <widget class="QWidget" name="page">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>280</width>
+           <height>198</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>飞行轨迹剖面</string>
+         </attribute>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>24</y>
+            <width>129</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>匹配数据</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="geometry">
+           <rect>
+            <x>128</x>
+            <y>24</y>
+            <width>129</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>清除匹配</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>100</y>
+            <width>100</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>起始:</string>
+          </property>
+         </widget>
+         <widget class="QDateTimeEdit" name="dateTimeEdit">
+          <property name="geometry">
+           <rect>
+            <x>100</x>
+            <y>100</y>
+            <width>150</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_2">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>130</y>
+            <width>100</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>结束:</string>
+          </property>
+         </widget>
+         <widget class="QDateTimeEdit" name="dateTimeEdit_2">
+          <property name="geometry">
+           <rect>
+            <x>100</x>
+            <y>130</y>
+            <width>150</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>48</y>
+            <width>257</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>绘制</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>257</width>
+            <height>25</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>加载轨迹...</string>
+          </property>
+         </widget>
+         <zorder>pushButton_2</zorder>
+         <zorder>pushButton_3</zorder>
+         <zorder>label</zorder>
+         <zorder>dateTimeEdit</zorder>
+         <zorder>label_2</zorder>
+         <zorder>dateTimeEdit_2</zorder>
+         <zorder>pushButton</zorder>
+         <zorder>frame</zorder>
+         <zorder>pushButton_4</zorder>
+        </widget>
+        <widget class="QWidget" name="page_2">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>280</width>
+           <height>198</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>固定点剖面</string>
+         </attribute>
+         <widget class="QLabel" name="label_4">
+          <property name="geometry">
+           <rect>
+            <x>6</x>
+            <y>4</y>
+            <width>31</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>经度:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_5">
+          <property name="geometry">
+           <rect>
+            <x>148</x>
+            <y>4</y>
+            <width>37</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>纬度:</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit">
+          <property name="geometry">
+           <rect>
+            <x>36</x>
+            <y>2</y>
+            <width>73</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>115.73</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_2">
+          <property name="geometry">
+           <rect>
+            <x>180</x>
+            <y>2</y>
+            <width>73</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>40.52</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>30</y>
+            <width>127</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>匹配数据</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="geometry">
+           <rect>
+            <x>132</x>
+            <y>30</y>
+            <width>123</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>清除匹配</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_7">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>54</y>
+            <width>255</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>绘制</string>
+          </property>
+         </widget>
+        </widget>
+       </widget>
+      </item>
+      <item row="1" column="2" rowspan="3">
        <widget class="QFrame" name="frame">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -48,76 +317,6 @@
         </property>
         <property name="frameShadow">
          <enum>QFrame::Plain</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>起始:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>结束:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QListWidget" name="DateTimeListWidget">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>130</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>400</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="selectionMode">
-         <enum>QAbstractItemView::MultiSelection</enum>
-        </property>
-        <property name="selectionBehavior">
-         <enum>QAbstractItemView::SelectRows</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0" colspan="2">
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>绘制</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>轨迹-&gt;数据:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="2">
-       <widget class="QPushButton" name="pushButton_2">
-        <property name="text">
-         <string>匹配数据</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QPushButton" name="pushButton_3">
-        <property name="text">
-         <string>清除匹配</string>
         </property>
        </widget>
       </item>

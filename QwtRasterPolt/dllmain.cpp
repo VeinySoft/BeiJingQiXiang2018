@@ -87,9 +87,9 @@ QWidget* OpenRasterFile(int iIndex, const char* strTitle, const char* fileName, 
 			plot->SetHideLable(RCM->GetMin());
 		}
 		
-		std::string strXComment = "strXComment";
-		std::string strYComment = "strYComment";
-		std::string strZComment = "strZComment";
+		std::string strXComment = pGMD->strXComment;
+		std::string strYComment = pGMD->strYComment;
+		std::string strZComment = pGMD->strZComment;
 		//rrf.GetAxisComment(strXComment, strYComment, strZComment);
 
 		QDateTime dt = QDateTime::fromString(QString::fromStdString(strXComment), "yyyyMMddhhmmsszzz");
@@ -110,7 +110,7 @@ QWidget* OpenRasterFile(int iIndex, const char* strTitle, const char* fileName, 
 		plot->SetAxisColorMap(pLinearColorMap2);
 		plot->SetRasterData(pRRD);
 
-		plot->DrawPlot();
+		plot->DrawPlot(pGMD->fXMin, pGMD->fXMax, pGMD->fXInterval, pGMD->fYMin, pGMD->fYMax, pGMD->fYInterval);
 
 		return plot;
 	}
@@ -158,7 +158,7 @@ QWidget* OpenRasterFile(int iIndex, const char* strTitle, const char* fileName, 
 		plot->SetAxisColorMap(pLinearColorMap2);
 		plot->SetRasterData(pRRD);
 
-		plot->DrawPlot();
+		plot->DrawPlot(pGMD->fXMin, pGMD->fXMax, 180, pGMD->fYMin, pGMD->fYMax, pGMD->fYInterval);
 		plot->enableAxis(QwtPlot::yRight, false);
 
 		

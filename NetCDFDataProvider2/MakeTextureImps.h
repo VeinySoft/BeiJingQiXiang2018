@@ -33,6 +33,9 @@ public:
 	QImage* loadNcFileToTexture( NcFile *pNcFile , osg::ref_ptr<osg::Vec3Array>& pV3Array);
 	QImage* GetPartNcFile(NcFile *pNcFile, osg::Vec3 p1, osg::Vec3 p2, int iMode, int upIndex = 0, int downIndex = 0, float* fMaxHeight=0, float* fVolume=0, float* fMaxDBZ=0);
 	QImage* GetSectionNcFile(NcFile *pNcFile, osg::Vec3 p1, osg::Vec3 p2);
+	int ExportPartNcFile(NcFile *pNcFile, osg::Vec3 p1, osg::Vec3 p2, int iMode, const QString& strExortFile);
+	int ExportSectionFile(NcFile *pNcFile, osg::Vec3 p1, osg::Vec3 p2, const QString& strExortFile);
+	int GetVerticalData(NcFile *pNcFile, osg::Vec3Array& vec3Array, osg::Vec3 p2, double* pData, size_t* pSize );
 private:
 	goto_gis::CoordinateTransform* m_pCoordinateTransform;
 };

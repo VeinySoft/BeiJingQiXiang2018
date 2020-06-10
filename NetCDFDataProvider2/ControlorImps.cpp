@@ -427,3 +427,31 @@ int ControlorImps::GetRectVertex( const std::string& strName, osg::Vec3& p1, osg
 	return 1;
 }
 
+int ControlorImps::ExportPartNcFile(const QString& strName, osg::Vec3 p1, osg::Vec3 p2, int iMode, const QString& strExortFile)
+{
+	NcFile ncFile(strName.toStdString().c_str());
+	MakeTextureImps mti(m_pNetCDFDataProvider->m_pParentLayer->CoordTrans());
+	int iR = mti.ExportPartNcFile(&ncFile, p1, p2, m_Layer, strExortFile);
+	ncFile.close();
+	return iR;
+}
+
+int ControlorImps::ExportSctionFile(const QString& strName, osg::Vec3 p1, osg::Vec3 p2, int iMode, const QString& strExortFile)
+{
+	NcFile ncFile(strName.toStdString().c_str());
+	MakeTextureImps mti(m_pNetCDFDataProvider->m_pParentLayer->CoordTrans());
+	int iR = mti.ExportSectionFile(&ncFile, p1, p2, strExortFile);
+	ncFile.close();
+
+	return iR;
+}
+
+int ControlorImps::GetVerticalData(const std::string& strName, osg::Vec3Array& vec3Array, osg::Vec3 p2, double* pData, size_t* pSize)
+{
+	NcFile ncFile(strName.c_str());
+	MakeTextureImps mti(m_pNetCDFDataProvider->m_pParentLayer->CoordTrans());
+	int iR = mti.GetVerticalData(&ncFile, vec3Array, p2, pData, pSize);
+	ncFile.close();
+
+	return iR;
+}

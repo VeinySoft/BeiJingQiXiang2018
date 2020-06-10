@@ -135,7 +135,7 @@
     <ClInclude Include="GeneratedFiles\ui_PaoDianListDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FlightAndRasterWindow.h">
+    <ClInclude Include="GeneratedFiles\ui_FlightAndRaster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -260,6 +260,9 @@
     <ClCompile Include="FlightAndRasterWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_FlightAndRasterWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui">
@@ -327,6 +330,9 @@
     </CustomBuild>
     <CustomBuild Include="FlightAndRaster.ui">
       <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="FlightAndRasterWindow.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

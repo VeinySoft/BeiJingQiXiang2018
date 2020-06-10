@@ -236,10 +236,16 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="FileNameDockList.h" />
-    <ClInclude Include="FlightAndRasterWindow.h" />
+    <CustomBuild Include="FlightAndRasterWindow.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  -f"stdafx.h" -f"../%(Filename).h" -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -DGEOSONTHEOSG_LIB -DGISDBENGINE_LIB -DIDP_CONTROL_LIB -DQT_SQL_LIB -DQT_OPENGL_LIB -DGISEXTEND_IMPORT -DCDATAELEMENT_LIB -DTMUI_LIB -DGRAPHICSCONTROLER_LIB -D_WINDLL  "-I." "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\qtmain" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtXml" "-I." "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtOpenGL" "-I.\..\GraphicsControler\GeneratedFiles\Release" "-I.\..\GraphicsControler\GeneratedFiles\Debug" "-I.\..\RadarStructDataProvider" "-I.\..\RadarSingleDataProvider" "-I.\..\RadarMosaicDataProvider" "-I$(GEOS_HOME)\include" "-I$(GEOS_HOME)\capi" "-I." "-I$(OSG_EARTH_INCLUDE)\." "-I$(OSG_INCLUDE)\." "-I$(PROJ4_INCLUDE)\." "-I$(GEOS_INCLUDE)\." "-I$(BOOST_INCLUDE)\." "-I$(GDAL_HOME)\include" "-I." "-I." "-I." "%(Filename).h" -o ".\GeneratedFiles\moc_%(Filename).cpp"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
     <ClInclude Include="GeneratedFiles\ui_ClipNcFileImage.h" />
     <ClInclude Include="GeneratedFiles\ui_CubeSettings.h" />
     <ClInclude Include="GeneratedFiles\ui_ExportImage.h" />
+    <ClInclude Include="GeneratedFiles\ui_FlightAndRaster.h" />
     <ClInclude Include="GeneratedFiles\ui_LayerDaockWidget.h" />
     <ClInclude Include="GeneratedFiles\ui_ListDockWidget.h" />
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h" />
@@ -309,6 +315,7 @@
     <ClCompile Include="FileNameDockList.cpp" />
     <ClCompile Include="FlightAndRasterWindow.cpp" />
     <ClCompile Include="GeneratedFiles\moc_CubeSettingsDialogImps.cpp" />
+    <ClCompile Include="GeneratedFiles\moc_FlightAndRasterWindow.cpp" />
     <ClCompile Include="GeneratedFiles\moc_ModeSettingDialogImps.cpp" />
     <ClCompile Include="GeneratedFiles\moc_PaoDianDockWidget.cpp" />
     <ClCompile Include="GeneratedFiles\moc_PaoDianListDialog.cpp" />
