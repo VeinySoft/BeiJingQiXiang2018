@@ -1,14 +1,21 @@
 #include "StdAfx.h"
 #include "FlightAndRasterWindow.h"
 #include <qdatetime.h>
+#include <QSettings>
 #include "MainWindow.h"
 #include "../FlightPathProvider/FlightPathControler.h"
 
 FlightAndRasterWindow::FlightAndRasterWindow(MainWindow* pM)
 	: m_bMatched(false), m_funOpenRasterFile(0), m_FlightPathControler(0), m_pControlorInterface(0)
-	, m_funGetPlotWidget(0), m_funReplotData(0), m_pMainWindow(pM)
+	, m_funGetPlotWidget(0), m_funReplotData(0), m_pMainWindow(pM), m_iDTSelectStartIndex(-1), m_iDTSelectEndIndex(-1)
+	, m_pCurrentFixRasterData(0)
 {
 	m_setup.setupUi(this);
+	m_setup.label->hide();
+	m_setup.label_2->hide();
+	m_setup.dateTimeEdit->hide();
+	m_setup.dateTimeEdit_2->hide();
+
 	this->setWindowIcon(QIcon("./icon/diagram.png"));
 	connect(m_setup.pushButton_2, SIGNAL(clicked(bool)), SLOT(slot_MatchData(bool)));
 	connect(m_setup.pushButton_3, SIGNAL(clicked(bool)), SLOT(slot_ClearMatch(bool)));
@@ -19,6 +26,14 @@ FlightAndRasterWindow::FlightAndRasterWindow(MainWindow* pM)
 	connect(m_setup.pushButton_5, SIGNAL(clicked(bool)), SLOT(slot_MatchFixPointData(bool)));
 	connect(m_setup.pushButton_6, SIGNAL(clicked(bool)), SLOT(slot_ClearFixPointMatch(bool)));
 	connect(m_setup.pushButton_7, SIGNAL(clicked(bool)), SLOT(slot_DrawFixPointRaster(bool)));
+
+	connect(m_setup.pushButton_8, SIGNAL(clicked(bool)), SLOT(slot_exportDrawFixRaster(bool)));
+	connect(m_setup.pushButton_9, SIGNAL(clicked(bool)), SLOT(slot_ExportDrawFlightRaster(bool)));
+
+	connect(m_setup.checkBox, SIGNAL(clicked(bool)), SLOT(slot_checkboxUpdate(bool)));
+	connect(m_setup.lineEdit, SIGNAL(editingFinished()), SLOT(slot_lineEditUpdate()));
+	connect(m_setup.lineEdit_2, SIGNAL(editingFinished()), SLOT(slot_lineEdit_2Update()));
+	connect(m_setup.toolBox, SIGNAL(currentChanged(int)), SLOT(slot_toolboxUpdate(int)));
 
 	//connect(m_setup.
 	QLibrary plotLib("./QwtRasterPolt");
@@ -32,6 +47,15 @@ FlightAndRasterWindow::FlightAndRasterWindow(MainWindow* pM)
 		QWidget* pPlotWidget = m_funGetPlotWidget();
 		m_setup.gridLayout->addWidget(pPlotWidget, 1, 2, 6, 1);
 	}
+
+	QSettings configIni("conifg_flight_raster.ini", QSettings::IniFormat);
+
+	configIni.beginGroup("UI_CONIFIG");
+	m_setup.checkBox->setChecked(configIni.value("m_setup.checkBox", true).toBool());
+	m_setup.toolBox->setCurrentIndex(configIni.value("m_setup.toolBox", 1).toInt());
+	m_setup.lineEdit->setText(configIni.value("m_setup.lineEdit", "115.73").toString());
+	m_setup.lineEdit_2->setText(configIni.value("m_setup.lineEdit_2", "40.52").toString());
+	configIni.endGroup();
 }
 
 FlightAndRasterWindow::~FlightAndRasterWindow(void)
@@ -107,6 +131,12 @@ void FlightAndRasterWindow::slot_MatchData(bool)
 
 void FlightAndRasterWindow::slot_DrawRaster(bool)
 {
+	if(m_FlightPathControler == NULL)
+	{
+		QMessageBox::warning(this, QString::fromLocal8Bit("绘制剖面错误发生"), QString::fromLocal8Bit("没有加载任何轨迹文件，无法绘制剖面图。"));
+		return;
+	}
+
 	int iLayerCount = 20;
 	MemoryData md;
 	md.fXMin = 0;
@@ -253,7 +283,7 @@ void FlightAndRasterWindow::UpdateFlightPath(int iState)
 void FlightAndRasterWindow::slot_LoadFlightPath(bool)
 {
 	QString strFileName = QFileDialog::getOpenFileName(this
-			, QString::fromLocal8Bit("打开飞行轨迹"), "", "JPEG (*.csv)");
+			, QString::fromLocal8Bit("打开飞行轨迹"), "", "csv (*.csv)");
 	if(strFileName.size() > 0)
 	{
 		m_FlightPathControler = m_pMainWindow->LoadFlightPath(strFileName);
@@ -304,7 +334,7 @@ void WriteFile(const QString& strFile, double* data, int rows, int cols)
 template <typename DT>
 void setValue(DT* data, const DT& tV, size_t size)
 {
-	for(int i = 0; i < size; i ++)
+	for(size_t i = 0; i < size; i ++)
 	{
 		*(data + i) = tV;
 	}
@@ -312,24 +342,43 @@ void setValue(DT* data, const DT& tV, size_t size)
 
 void FlightAndRasterWindow::slot_DrawFixPointRaster(bool)
 {
+	if(m_pCurrentFixRasterData)
+	{
+		delete[] m_pCurrentFixRasterData;
+		m_pCurrentFixRasterData = NULL;
+	}
+	QString strTtile = QString::fromLocal8Bit("定点剖面图");
+	if(m_MatchFileList.size() == 0 || m_iDTSelectEndIndex < 0 || m_iDTSelectStartIndex < 0)
+	{
+		QMessageBox::warning(this, QString::fromLocal8Bit("绘制剖面错误发生"), QString::fromLocal8Bit("没有任何匹配文件数据，无法绘制剖面图。"));
+		return;
+	}
 	int DTCount = m_iDTSelectEndIndex - m_iDTSelectStartIndex + 1;
 	typedef osg::Vec3Array* ARRAY_POINTER;
 	typedef QMap<QString, ARRAY_POINTER> FILE_MAP;
 	int iLayerCount = 20;
+	QString strFirstFile = m_MatchFileList.at(0);
 	MemoryData md;
-	md.fXMin = 0;
-	md.fXMax = DTCount;
-	md.fXInterval = 1;
 	
-	md.fYMin = 0;
-	md.fYMax = 19;
-	md.fYInterval = 1;
+	md.StartDateTime = QDateTime::fromString(strFirstFile, "yyyyMMddhhmmss");
+	md.TimeInterval = 360;
+
+	md.fXMin = 0;
+	md.fXMax = DTCount - 1;
+	md.fXInterval = 10;
+	
+	md.fYMin = 500;
+	md.fYMax = 19500;
+	md.fYInterval = 1000;
+	md.HeightScale = 1;
 
 	md.fZMin = -45;
 	md.fZMax = 30;
 	md.fZInterval = 5;
 
-	
+	md.strXComment = strFirstFile.toStdString();
+	md.strYComment = QString("(KM)").toStdString();
+
 	md.DataSize = DTCount * iLayerCount;
 	md.ColumnCount = DTCount;
 	md.pData = new double[md.DataSize];
@@ -380,38 +429,47 @@ void FlightAndRasterWindow::slot_DrawFixPointRaster(bool)
 	}
 	
 	//线性插值
-#if 1
-	int iScale = 5;
-	double* oldData = md.pData;
-	int newiDTCount = DTCount * iScale;
-	int newiLayerCount = iLayerCount * iScale;
+	if(m_setup.checkBox->isChecked())
+	{
+		int iScale = 5;
+		double* oldData = md.pData;
+		int newiDTCount = DTCount * iScale;
+		int newiLayerCount = iLayerCount * iScale;
 
-	md.DataSize = newiDTCount * newiLayerCount;
-	md.ColumnCount = newiDTCount;
-	md.pData = new double[md.DataSize];
-	//memset(md.pData, 0, sizeof(double) * md.DataSize);
-	setValue<double>(md.pData, 100.00, md.DataSize);
+		md.DataSize = newiDTCount * newiLayerCount;
+		md.ColumnCount = newiDTCount;
+		md.pData = new double[md.DataSize];
+		//memset(md.pData, 0, sizeof(double) * md.DataSize);
+		setValue<double>(md.pData, 100.00, md.DataSize);
 
-	//WriteFile("E:\\Project\\out3.txt", md.pData, iLayerCount, DTCount);
-	LinearInterpolation(oldData, DTCount, iLayerCount, md.pData, newiDTCount, newiLayerCount);
-	//WriteFile("E:\\Project\\out2.txt", md.pData, newiLayerCount, newiDTCount);
-	delete[] oldData;
-	md.fXMin = 0;
-	md.fXMax = newiDTCount - 1;
-	md.fXInterval = iScale;
+		//WriteFile("E:\\Project\\out3.txt", md.pData, iLayerCount, DTCount);
+		LinearInterpolation(oldData, DTCount, iLayerCount, md.pData, newiDTCount, newiLayerCount);
+		//WriteFile("E:\\Project\\out2.txt", md.pData, newiLayerCount, newiDTCount);
+		delete[] oldData;
+		md.TimeInterval = 360 * iScale;
+
+		md.fXMin = 0;
+		md.fXMax = newiDTCount - 1;
+		md.fXInterval = iScale * md.fXInterval;
 	
-	md.fYMin = 0;
-	md.fYMax = newiLayerCount - 1;
-	md.fYInterval = iScale;
+		md.fYMin = md.fYMin * iScale;
+		md.fYMax = md.fYMax * iScale;
+		md.fYInterval = md.fYInterval * iScale;
+		md.HeightScale = (double)1 / iScale;
 
-	md.fZMin = -45;
-	md.fZMax = 30;
-	md.fZInterval = 5;
-#endif
-	m_funOpenRasterFile(0, "RasterData", "./Config/ColorTable.ini", &md);
+		md.fZMin = -45;
+		md.fZMax = 30;
+		md.fZInterval = 5;
+	}
+	m_pCurrentFixRasterData = md.pData;
+	
+	m_FixDataCols = md.fXMax + 1;
+	m_FixDataRows = md.DataSize/m_FixDataCols;
+
+	m_funOpenRasterFile(0, strTtile, "./Config/ColorTable.ini", &md);
 	m_funReplotData(0);
 
-	delete[] md.pData;
+	//delete[] md.pData;
 }
 
 void FlightAndRasterWindow::slot_ClearFixPointMatch(bool)
@@ -448,24 +506,42 @@ void FlightAndRasterWindow::LinearInterpolation(double* srcBuff, size_t rowsSrc,
 			double innerCountX = ix1 - ix0;
 			double innerCountY = iy1 - iy0;
 
+			//计算X和Y扩大倍数,用于计算以前对应的值在新坐标中是那个坐标
 			size_t moveXStep = (double)1 / scale_x;
 			size_t moveYStep = (double)1 / scale_y;
 
+			//在新的坐标系总填充这四个点的坐标
 			*(destBuff + (size_t)iy0 * columnsDest + (size_t)ix0) = p0;
 			*(destBuff + (size_t)iy0 * columnsDest + (size_t)ix0 + moveXStep) = p1;
 			*(destBuff + ((size_t)iy0 + moveYStep) * columnsDest + (size_t)ix0) = p2;
 			*(destBuff + ((size_t)iy0 + moveYStep) * columnsDest + (size_t)ix0 + moveXStep) = p3;
 			
+			//双线性插值算法开始
 			for (size_t ixi = 1; ixi < innerCountX; ixi++)
 			{
 				//ix1 - (ix0 + ixi)
 				//(ix0 + ixi) - ix0
+				//计算X上面的p0和p1中间一个点的值,有个这个点取决于决定被扩大了几倍
+				////////////////////////////////////////////////////////////////////////////////
+				/////////////////////p0---newXV0-----p1/////////////////////////////////////
+				//////////////////////|              |//////////////////////////////////////
+				//////////////////////|              |//////////////////////////////////////
+				//////////////////////|              |//////////////////////////////////////
+				//////////////////////p2--newXV1-----p3/////////////////////////////////////
+				////////////////////////////////////////////////////////////////////////////////
 				double newXV0 = p0 * (ix1 - (ix0 + ixi)) / innerCountX + p1 * (ixi) / innerCountX;
 				double newXV1 = p2 * (ix1 - (ix0 + ixi)) / innerCountX + p3 * ixi / innerCountX;
 
 				*(destBuff + (size_t)iy0 * columnsDest + (size_t)ix0 + ixi) = newXV0;
 				*(destBuff + ((size_t)iy0 + moveYStep) * columnsDest + (size_t)ix0 + ixi) = newXV1;
 
+				//从X坐标上计算到的两个点,计算出一个中间点的值
+				////////////////////////////////////////////////////////////////////////
+				/////////////////////p0---newXV0-----p1/////////////////////////////////////
+				//////////////////////|     |        |//////////////////////////////////////
+				//////////////////////|    newYV0    |//////////////////////////////////////
+				//////////////////////|     |        |//////////////////////////////////////
+				//////////////////////p2--newXV1-----p3/////////////////////////////////////
 				for (size_t iyi = 1; iyi < innerCountY; iyi++)
 				{
 					double newYV0 = newXV0 * (iy1 - (iy0 + iyi)) / innerCountY + newXV1 * iyi / innerCountY;
@@ -475,6 +551,12 @@ void FlightAndRasterWindow::LinearInterpolation(double* srcBuff, size_t rowsSrc,
 
 			}
 
+			////////////////////计算Y方向边框上的两个点/////////////////////////////////
+			/////////////////////p0---newXV0-----p1/////////////////////////////////////
+			//////////////////////|              |//////////////////////////////////////
+			///////////////////newYV0         newYV1////////////////////////////////////
+			//////////////////////|              |//////////////////////////////////////
+			//////////////////////p2--newXV1-----p3/////////////////////////////////////
 			for (size_t iyi = 1; iyi < innerCountY; iyi++)
 			{
 				double newYV0 = p0 * (iy1 - (iy0 + iyi)) / innerCountY + p2 * iyi / innerCountY;
@@ -486,4 +568,57 @@ void FlightAndRasterWindow::LinearInterpolation(double* srcBuff, size_t rowsSrc,
 		}
 	}
 	
+}
+
+void FlightAndRasterWindow::slot_ExportDrawFlightRaster(bool)
+{
+}
+
+void FlightAndRasterWindow::slot_exportDrawFixRaster(bool)
+{
+	QString strFileName = QFileDialog::getSaveFileName(this
+			, QString::fromLocal8Bit("导出雷达数据"), "", "txt (*.txt)");
+
+	if(strFileName.size() > 0)
+	{
+		WriteFile(strFileName, m_pCurrentFixRasterData, m_FixDataRows, m_FixDataCols);
+	}		
+}
+
+void FlightAndRasterWindow::AutoSaveConfig()
+{
+	QSettings configIni("conifg_flight_raster.ini", QSettings::IniFormat);
+
+	configIni.beginGroup("UI_CONIFIG");
+	configIni.setValue("m_setup.checkBox", m_setup.checkBox->isChecked());
+	configIni.setValue("m_setup.toolBox", m_setup.toolBox->currentIndex());
+	configIni.setValue("m_setup.lineEdit", m_setup.lineEdit->text());
+	configIni.setValue("m_setup.lineEdit_2", m_setup.lineEdit_2->text());
+	configIni.endGroup();
+
+}
+
+void FlightAndRasterWindow::slot_checkboxUpdate(bool)
+{
+	AutoSaveConfig();
+}
+
+void FlightAndRasterWindow::slot_lineEditUpdate()//editingFinished()
+{
+	AutoSaveConfig();
+}
+
+void FlightAndRasterWindow::slot_lineEdit_2Update()//editingFinished()
+{
+	AutoSaveConfig();
+}
+
+void FlightAndRasterWindow::slot_toolboxUpdate(int)//currentChanged(int index)
+{
+	AutoSaveConfig();
+}
+
+void FlightAndRasterWindow::SaveData(double* pData, size_t rows, size_t cols)
+{
+
 }

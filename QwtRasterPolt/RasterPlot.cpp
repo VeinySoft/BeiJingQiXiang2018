@@ -3,6 +3,7 @@
 //#include "NonlinearityColorBarWidget.h"
 #include "RadarPlotPicker.h"
 #include "TimeScaleDraw.h"
+#include "HeightScalaDraw.h"
 
 class ColorTableScaleDraw : public QwtScaleDraw
 {
@@ -56,7 +57,7 @@ public:
 };
 
 RasterPlot::RasterPlot( QWidget *parent ):
-    QwtPlot( parent ), m_pRasterData(0), m_pColorMap(0)
+    QwtPlot( parent ), m_pRasterData(0), m_pColorMap(0), m_iXScaleDrawInterval(60), m_iYScaleDrawInterval(1)
 {
 
 	m_pMyMarker = new QwtPlotMarker();
@@ -111,20 +112,25 @@ void RasterPlot::DrawPlot(const double& dMinX, const double& dMaxX, const double
 	//scaleDraw->setTimeSpec(Qt::TimeSpec::TimeZone);
 
 	//QTime t = QTime::currentTime();
-	TimeScaleDraw* timeScaleDraw = new TimeScaleDraw(m_StartDateTime.time());
-
-	QwtDateScaleEngine *scaleEngine = new QwtDateScaleEngine(Qt::UTC);
 	
-	//setAxisScaleDraw(QwtPlot::xBottom, timeScaleDraw);
+	/////////////////////////////////////X坐标设置////////////////////////////////////////
+	TimeScaleDraw* timeScaleDraw = new TimeScaleDraw(m_StartDateTime, m_iXScaleDrawInterval);
+	QwtDateScaleEngine *scaleEngine = new QwtDateScaleEngine(Qt::UTC);
+	setAxisScaleDraw(QwtPlot::xBottom, timeScaleDraw);
 	setAxisScaleEngine(QwtPlot::xBottom, scaleEngine);
 
 	//setAxisLabelRotation(QwtPlot::xBottom, -50.0);
 	setAxisLabelAlignment(QwtPlot::xBottom, Qt::AlignCenter);
 	setAxisScale(QwtPlot::xBottom, dMinX, dMaxX, dIntervalX);
-	setAxisMaxMinor(QwtPlot::xBottom, 1);
+	//setAxisMaxMinor(QwtPlot::xBottom, 6);
+	setAxisMaxMajor(QwtPlot::xBottom, 20);
+	//////////////////////////////////Y坐标设置////////////////////////////////////////////
+	HeightScalaDraw* heightScalaDraw = new HeightScalaDraw(m_iYScaleDrawInterval);
+
 	setAxisScale(QwtPlot::yLeft, dMinY, dMaxY, dIntervalY);
 	setAxisMaxMinor(QwtPlot::yLeft, 0);
-
+	setAxisScaleDraw(QwtPlot::yLeft, heightScalaDraw);
+	//////////////////////////////////色卡的设置（Y坐标右侧）//////////////////////////////
 	QwtPlotMagnifier *magnifier = new QwtPlotMagnifier(canvas);
 	magnifier->setAxisEnabled(QwtPlot::yRight, false);
 

@@ -11,7 +11,7 @@ class FlightAndRasterWindow :
 {
 	Q_OBJECT
 public:
-	typedef QWidget* (*FUNDEF_OpenRasterFile)(int iIndex, const char* strTitle, const char* fileName, MemoryData* pGMD);
+	typedef QWidget* (*FUNDEF_OpenRasterFile)(int iIndex, const QString& strTitle, const QString& fileName, MemoryData* pGMD);
 	typedef QWidget* (*FUNDEF_GetPlotWidget)();
 	typedef void (*FUNDEF_ReplotData)(int iIndex);
 	FlightAndRasterWindow(MainWindow* pM);
@@ -21,7 +21,9 @@ public:
 	inline void FillFilesList(const QStringList& l){m_MatchFileList = l;}
 	void UpdateFlightPath(int iState);
 	void LinearInterpolation(double* srcBuff, size_t rowsSrc, size_t columnsSrc, double* destBuff, size_t rowsDest, size_t columnsDest);
-	
+	void AutoSaveConfig();
+	void SaveData(double* pData, size_t rows, size_t cols);
+
 private:
 	FUNDEF_OpenRasterFile m_funOpenRasterFile;
 	FUNDEF_GetPlotWidget m_funGetPlotWidget;
@@ -35,6 +37,9 @@ private:
 	int m_iDTSelectEndIndex;
 	bool m_bMatched;
 	MainWindow* m_pMainWindow;
+	double* m_pCurrentFixRasterData;
+	size_t m_FixDataRows;
+	size_t m_FixDataCols;
 	//QStringList m_DTSelectList;
 public slots:
 	void slot_MatchData(bool);
@@ -46,5 +51,11 @@ public slots:
 	void slot_updateSelectNcFiles(const QStringList& fileNames);
 	void slot_LoadFlightPath(bool);
 	void slot_itemSelectionChanged();
+	void slot_ExportDrawFlightRaster(bool);
+	void slot_exportDrawFixRaster(bool);
+	void slot_checkboxUpdate(bool);
+	void slot_lineEditUpdate();//editingFinished()
+	void slot_lineEdit_2Update();//editingFinished()
+	void slot_toolboxUpdate(int);//currentChanged(int index)
 };
 

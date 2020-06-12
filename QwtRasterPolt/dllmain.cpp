@@ -42,9 +42,9 @@ void ReplotData(int iIndex)
 	}
 }
 
-QWidget* OpenRasterFile(int iIndex, const char* strTitle, const char* fileName, MemoryData* pGMD)
+QWidget* OpenRasterFile(int iIndex, const QString& strTitle, const QString& fileName, MemoryData* pGMD)
 {
-	QString colorTableFile = QString::fromLocal8Bit(fileName);
+	QString colorTableFile = fileName;
 
 	if (colorTableFile.size() == 0)
 	{
@@ -65,6 +65,7 @@ QWidget* OpenRasterFile(int iIndex, const char* strTitle, const char* fileName, 
 	if (ccb.GetBarStyle() == ColorBar::LINEAR)
 	{
 		RasterPlot* plot = GetRasterPlot(iIndex);
+		//plot->SetStartDateTime(pGMD->StartDateTime, pGMD->TimeInterval);
 		plot->setFont(globleFont);
 		plot->canvas()->setFont(globleFont);
 		QwtColorMap* pLinearColorMap = RCM->Make(&ccb);
@@ -72,7 +73,7 @@ QWidget* OpenRasterFile(int iIndex, const char* strTitle, const char* fileName, 
 		RadarRasterData* pRRD = new RadarRasterData();
 		pRRD->SetFillValue(RCM->GetMin() + RCM->GetSetp() / 2);
 		pRRD->SetMaxValue(RCM->GetMax());
-
+		
 		//ParseRasterFile rrf;
 		//rrf.m_strExpression = m_expression.value(suffixName);
 		//rrf.ReadDataFromFile(fileName.toStdString());
@@ -92,15 +93,16 @@ QWidget* OpenRasterFile(int iIndex, const char* strTitle, const char* fileName, 
 		std::string strZComment = pGMD->strZComment;
 		//rrf.GetAxisComment(strXComment, strYComment, strZComment);
 
-		QDateTime dt = QDateTime::fromString(QString::fromStdString(strXComment), "yyyyMMddhhmmsszzz");
+		QDateTime dt = QDateTime::fromString(QString::fromStdString(strXComment), "yyyyMMddhhmmss");
 		QwtText topTitle, leftTitle, rightTitle, bottomTitle;
+
 		topTitle.setText(strTitle); topTitle.setFont(globleFont);
 		leftTitle.setText(QString::fromStdString(strYComment)); leftTitle.setFont(globleFont);
 		rightTitle.setText(strRightName); rightTitle.setFont(globleFont);
-		bottomTitle.setText(QString::fromLocal8Bit("NAQU-") + dt.date().toString("yyyyMMdd")); bottomTitle.setFont(globleFont);
+		bottomTitle.setText(QString::fromLocal8Bit("") + dt.date().toString("yyyyMMdd")); bottomTitle.setFont(globleFont);
 		
 		plot->setTitle(strTitle);
-		plot->SetStartDateTime(dt);
+		plot->SetStartDateTime(dt, pGMD->TimeInterval);
 
 		plot->setAxisTitle(QwtPlot::xBottom, bottomTitle);
 		plot->setAxisTitle(QwtPlot::yLeft, leftTitle);
@@ -109,7 +111,7 @@ QWidget* OpenRasterFile(int iIndex, const char* strTitle, const char* fileName, 
 		plot->SetColorMap(pLinearColorMap);
 		plot->SetAxisColorMap(pLinearColorMap2);
 		plot->SetRasterData(pRRD);
-
+		plot->SetYScaleDrawInterval(pGMD->HeightScale);
 		plot->DrawPlot(pGMD->fXMin, pGMD->fXMax, pGMD->fXInterval, pGMD->fYMin, pGMD->fYMax, pGMD->fYInterval);
 
 		return plot;
@@ -140,15 +142,15 @@ QWidget* OpenRasterFile(int iIndex, const char* strTitle, const char* fileName, 
 		std::string strZComment = "strZComment";
 		//rrf.GetAxisComment(strXComment, strYComment, strZComment);
 		
-		QDateTime dt = QDateTime::fromString(QString::fromStdString(strXComment), "yyyyMMddhhmmsszzz");
+		QDateTime dt = QDateTime::fromString(QString::fromStdString(strXComment), "yyyyMMddhhmmss");
 		QwtText topTitle, leftTitle, rightTitle, bottomTitle;
 		topTitle.setText(strTitle); topTitle.setFont(globleFont);
 		leftTitle.setText(QString::fromStdString(strYComment)); leftTitle.setFont(globleFont);
 		rightTitle.setText(strRightName); rightTitle.setFont(globleFont);
-		bottomTitle.setText(QString::fromLocal8Bit("NAQU-") + dt.date().toString("yyyyMMdd")); bottomTitle.setFont(globleFont);
+		bottomTitle.setText(QString::fromLocal8Bit("ÆÊÃæÍ¼-") + dt.date().toString("yyyyMMdd")); bottomTitle.setFont(globleFont);
 
 		plot->setTitle(strTitle);
-		plot->SetStartDateTime(dt);
+		plot->SetStartDateTime(dt, pGMD->TimeInterval);
 		
 		plot->setAxisTitle(QwtPlot::xBottom, bottomTitle);
 		plot->setAxisTitle(QwtPlot::yLeft, leftTitle);

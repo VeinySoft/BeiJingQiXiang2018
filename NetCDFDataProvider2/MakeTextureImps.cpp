@@ -2053,7 +2053,7 @@ int MakeTextureImps::GetVerticalData(NcFile *pNcFile, osg::Vec3Array& vec3Array,
 					laCount[2] = 1;
 					laCount[3] = 1;
 
-
+#if 1
 					//x坐标增量为1，通过直线方程求出y坐标的增量
 					float x = currentLocalPos.x() / 1000;
 					float y = currentLocalPos.z() / 1000;
@@ -2062,7 +2062,16 @@ int MakeTextureImps::GetVerticalData(NcFile *pNcFile, osg::Vec3Array& vec3Array,
 					int iYindex = -iLeftY + v3Result.z();
 
 					int iXindex = -iLeftX + v3Result.x();
+#else
+					double latPropKM = (double)1/111.31955;
+					double lonPropKM = (double)1/111.31955;
 
+					double distanceLon = lonLat.x() - currentLatLon.x();
+					double distanceLat = lonLat.y() - currentLatLon.y();
+
+					int iYindex = distanceLon/lonPropKM - iLeftY;
+					int iXindex = distanceLat/latPropKM - iLeftX;
+#endif
 					if(iYindex < 0 || iYindex > m_y)
 					{
 						pData[ii] = 100;

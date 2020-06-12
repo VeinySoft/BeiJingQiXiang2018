@@ -253,6 +253,8 @@ private:
 	QStringList m_SelectFilesList;
 	QStringList m_SelectReplayFilesList;
 	QMap<QString, QwtPlotDialogImps*> m_QwtPlotDialogMap;
+
+	QStringList m_RasterNeedFiles;
 	struct ScaleDraw
 	{
 		int iValue;

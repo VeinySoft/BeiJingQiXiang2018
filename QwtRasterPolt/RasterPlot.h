@@ -10,7 +10,8 @@ public:
 	inline void SetAxisColorMap(QwtColorMap* pColorMap) { m_pAxisColorMap = pColorMap; }
 
 	void DrawPlot(const double& dMinX, const double& dMaxX, const double& dIntervalX, const double& dMinY, const double& dMaxY, const double& dIntervalY);
-	inline void SetStartDateTime(const QDateTime& t) { m_StartDateTime = t; }
+	inline void SetStartDateTime(const QDateTime& t, int timeInterval) { m_StartDateTime = t; m_iXScaleDrawInterval = timeInterval;}
+	inline void SetYScaleDrawInterval(double dS){m_iYScaleDrawInterval = dS;}
 	void showInfo(QString text);
 	inline void SetValueSetp(float fS) { m_fYAxisSetp = fS; }
 	inline void HideMarker(bool bH) { bH ? m_pMyMarker->attach(this) : m_pMyMarker->detach(); }
@@ -32,6 +33,8 @@ private:
 	QwtColorMap* m_pColorMap;
 	QwtColorMap* m_pAxisColorMap;
 	QDateTime m_StartDateTime;
+	int m_iXScaleDrawInterval;
+	double m_iYScaleDrawInterval;
 	QwtPlotPicker *m_picker;
 	float m_fYAxisSetp;
 	/*QwtSymbol* m_pSymbolSimulation;

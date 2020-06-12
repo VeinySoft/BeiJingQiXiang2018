@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <OSG_HOME>E:\New_3D_SDK\OpenSceneGraph-3.2.1</OSG_HOME>
+    <OSG_HOME>E:\Project\New_3D_SDK\OpenSceneGraph-3.2.1</OSG_HOME>
   </PropertyGroup>
   <PropertyGroup>
     <IncludePath>$(OSG_HOME)\vs2010\include;$(IncludePath)</IncludePath>

@@ -1,6 +1,7 @@
 #pragma once
 #include <qstringlist.h>
 #include <qvector.h>
+#include <qdatetime.h>
 
 struct MemoryData
 {
@@ -23,6 +24,10 @@ struct MemoryData
 
 	std::string strTtile;
 
+	QDateTime StartDateTime;
+	int TimeInterval;
+	
+	double HeightScale;
 	//AdditionalData* OtherData;
 };
 

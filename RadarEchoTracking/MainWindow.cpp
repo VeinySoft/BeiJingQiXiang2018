@@ -253,7 +253,7 @@ MainWindow::MainWindow(void) : m_pViewerQT(0), m_pMap(0)
 	m_pAccordingPaoDianToTrackBoxAtion = new QAction(QIcon("./icon/paodiancube.png"), QString::fromLocal8Bit("炮点生成跟踪框"), this);
 	m_pMoveTrackBoxAction = new QAction(QIcon("./icon/copyBox.png"), QString::fromLocal8Bit("移动跟踪框"), this);
 	m_pExportRegionDataAction = new QAction(QIcon("./icon/export_file.png"), QString::fromLocal8Bit("导出选定区域"), this);																					  
-	m_pOpenFlightPathAction = new QAction(QIcon("./icon/flightPath.png"), QString::fromLocal8Bit("加载飞行轨迹"), this);
+	m_pOpenFlightPathAction = new QAction(QIcon("./icon/flightPath.png"), QString::fromLocal8Bit("轨迹与固定点剖面"), this);
 
 	m_pPauseTrackAction->setCheckable(true);
 	m_pRestorePointerAction->setCheckable(true);
@@ -549,10 +549,22 @@ void MainWindow::slot_ActionTriggered( QAction* action )
 	}
 	else if(m_pOpenFlightPathAction == action)
 	{
-		QStringList ncFilesList;
-		ncFilesList.push_back(m_FileList[0]);
-		ncFilesList.push_back(m_FileList[m_FileList.size() - 1]);
-		m_pRasterWindow->slot_updateSelectNcFiles(ncFilesList);
+		QStringList files = m_RasterNeedFiles;
+		//files.append();
+		if(files.size() == 0)
+		{
+			QStringList ncFilesList;
+			ncFilesList.push_back(m_FileList[0]);
+			ncFilesList.push_back(m_FileList[m_FileList.size() - 1]);
+			m_pRasterWindow->slot_updateSelectNcFiles(ncFilesList);
+		}
+		else
+		{
+			QStringList ncFilesList;
+			ncFilesList.push_back(files[0]);
+			ncFilesList.push_back(m_FileList[m_FileList.size() - 1]);
+			m_pRasterWindow->slot_updateSelectNcFiles(files);
+		}
 		m_pRasterWindow->show();
 		//m_pRasterWindow->FillList();
 	}
@@ -2055,6 +2067,8 @@ void MainWindow::slot_NameListClicked(const QModelIndex& index)
 
 		selectPairNames.push_back(pItem1->text());
 		//selectPairNames.push_back(pItem2->text());
+		m_RasterNeedFiles.clear();
+		m_RasterNeedFiles.push_back(pItem1->text());
 
 		emit signal_SelectFiles(selectPairNames);
 	}

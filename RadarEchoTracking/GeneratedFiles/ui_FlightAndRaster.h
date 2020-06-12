@@ -13,6 +13,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QCheckBox>
 #include <QtGui/QDateTimeEdit>
 #include <QtGui/QFrame>
 #include <QtGui/QGridLayout>
@@ -34,6 +35,7 @@ public:
     QWidget *centralwidget;
     QGridLayout *gridLayout_2;
     QGridLayout *gridLayout;
+    QFrame *frame;
     QListWidget *DateTimeListWidget;
     QLabel *label_3;
     QToolBox *toolBox;
@@ -46,6 +48,7 @@ public:
     QDateTimeEdit *dateTimeEdit_2;
     QPushButton *pushButton;
     QPushButton *pushButton_4;
+    QPushButton *pushButton_9;
     QWidget *page_2;
     QLabel *label_4;
     QLabel *label_5;
@@ -54,7 +57,8 @@ public:
     QPushButton *pushButton_5;
     QPushButton *pushButton_6;
     QPushButton *pushButton_7;
-    QFrame *frame;
+    QPushButton *pushButton_8;
+    QCheckBox *checkBox;
     QMenuBar *menubar;
 
     void setupUi(QMainWindow *FlightAndRaster)
@@ -70,14 +74,27 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setContentsMargins(2, 2, 2, 2);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        DateTimeListWidget = new QListWidget(centralwidget);
-        DateTimeListWidget->setObjectName(QString::fromUtf8("DateTimeListWidget"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+        frame = new QFrame(centralwidget);
+        frame->setObjectName(QString::fromUtf8("frame"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(DateTimeListWidget->sizePolicy().hasHeightForWidth());
-        DateTimeListWidget->setSizePolicy(sizePolicy);
-        DateTimeListWidget->setMinimumSize(QSize(280, 0));
+        sizePolicy.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
+        frame->setSizePolicy(sizePolicy);
+        frame->setMinimumSize(QSize(200, 0));
+        frame->setFrameShape(QFrame::NoFrame);
+        frame->setFrameShadow(QFrame::Plain);
+
+        gridLayout->addWidget(frame, 1, 2, 3, 1);
+
+        DateTimeListWidget = new QListWidget(centralwidget);
+        DateTimeListWidget->setObjectName(QString::fromUtf8("DateTimeListWidget"));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(DateTimeListWidget->sizePolicy().hasHeightForWidth());
+        DateTimeListWidget->setSizePolicy(sizePolicy1);
+        DateTimeListWidget->setMinimumSize(QSize(257, 0));
         DateTimeListWidget->setMaximumSize(QSize(1000000, 16777215));
         DateTimeListWidget->setSelectionMode(QAbstractItemView::MultiSelection);
         DateTimeListWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -94,7 +111,7 @@ public:
         toolBox->setMaximumSize(QSize(16777215, 250));
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, 0, 280, 198));
+        page->setGeometry(QRect(0, 0, 257, 198));
         pushButton_2 = new QPushButton(page);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
         pushButton_2->setGeometry(QRect(0, 24, 129, 23));
@@ -120,18 +137,13 @@ public:
         pushButton_4 = new QPushButton(page);
         pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
         pushButton_4->setGeometry(QRect(0, 0, 257, 25));
+        pushButton_9 = new QPushButton(page);
+        pushButton_9->setObjectName(QString::fromUtf8("pushButton_9"));
+        pushButton_9->setGeometry(QRect(0, 72, 255, 23));
         toolBox->addItem(page, QString::fromUtf8("\351\243\236\350\241\214\350\275\250\350\277\271\345\211\226\351\235\242"));
-        pushButton_2->raise();
-        pushButton_3->raise();
-        label->raise();
-        dateTimeEdit->raise();
-        label_2->raise();
-        dateTimeEdit_2->raise();
-        pushButton->raise();
-        pushButton_4->raise();
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 280, 198));
+        page_2->setGeometry(QRect(0, 0, 257, 198));
         label_4 = new QLabel(page_2);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setGeometry(QRect(6, 4, 31, 16));
@@ -153,22 +165,15 @@ public:
         pushButton_7 = new QPushButton(page_2);
         pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
         pushButton_7->setGeometry(QRect(0, 54, 255, 23));
+        pushButton_8 = new QPushButton(page_2);
+        pushButton_8->setObjectName(QString::fromUtf8("pushButton_8"));
+        pushButton_8->setGeometry(QRect(0, 78, 255, 23));
+        checkBox = new QCheckBox(page_2);
+        checkBox->setObjectName(QString::fromUtf8("checkBox"));
+        checkBox->setGeometry(QRect(2, 108, 126, 16));
         toolBox->addItem(page_2, QString::fromUtf8("\345\233\272\345\256\232\347\202\271\345\211\226\351\235\242"));
 
         gridLayout->addWidget(toolBox, 2, 0, 1, 2);
-
-        frame = new QFrame(centralwidget);
-        frame->setObjectName(QString::fromUtf8("frame"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
-        frame->setSizePolicy(sizePolicy1);
-        frame->setMinimumSize(QSize(200, 0));
-        frame->setFrameShape(QFrame::NoFrame);
-        frame->setFrameShadow(QFrame::Plain);
-
-        gridLayout->addWidget(frame, 1, 2, 3, 1);
 
 
         gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
@@ -198,6 +203,7 @@ public:
         label_2->setText(QApplication::translate("FlightAndRaster", "\347\273\223\346\235\237:", 0, QApplication::UnicodeUTF8));
         pushButton->setText(QApplication::translate("FlightAndRaster", "\347\273\230\345\210\266", 0, QApplication::UnicodeUTF8));
         pushButton_4->setText(QApplication::translate("FlightAndRaster", "\345\212\240\350\275\275\350\275\250\350\277\271...", 0, QApplication::UnicodeUTF8));
+        pushButton_9->setText(QApplication::translate("FlightAndRaster", "\345\257\274\345\207\272\346\225\260\346\215\256...", 0, QApplication::UnicodeUTF8));
         toolBox->setItemText(toolBox->indexOf(page), QApplication::translate("FlightAndRaster", "\351\243\236\350\241\214\350\275\250\350\277\271\345\211\226\351\235\242", 0, QApplication::UnicodeUTF8));
         label_4->setText(QApplication::translate("FlightAndRaster", "\347\273\217\345\272\246:", 0, QApplication::UnicodeUTF8));
         label_5->setText(QApplication::translate("FlightAndRaster", "\347\272\254\345\272\246:", 0, QApplication::UnicodeUTF8));
@@ -206,6 +212,8 @@ public:
         pushButton_5->setText(QApplication::translate("FlightAndRaster", "\345\214\271\351\205\215\346\225\260\346\215\256", 0, QApplication::UnicodeUTF8));
         pushButton_6->setText(QApplication::translate("FlightAndRaster", "\346\270\205\351\231\244\345\214\271\351\205\215", 0, QApplication::UnicodeUTF8));
         pushButton_7->setText(QApplication::translate("FlightAndRaster", "\347\273\230\345\210\266", 0, QApplication::UnicodeUTF8));
+        pushButton_8->setText(QApplication::translate("FlightAndRaster", "\345\257\274\345\207\272\346\225\260\346\215\256...", 0, QApplication::UnicodeUTF8));
+        checkBox->setText(QApplication::translate("FlightAndRaster", "\346\217\222\345\200\274", 0, QApplication::UnicodeUTF8));
         toolBox->setItemText(toolBox->indexOf(page_2), QApplication::translate("FlightAndRaster", "\345\233\272\345\256\232\347\202\271\345\211\226\351\235\242", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

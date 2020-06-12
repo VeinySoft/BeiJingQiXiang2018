@@ -67,7 +67,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;QWTRASTERPOLT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;QWTRASTERPOLT_EXPORTS;QWT_DLL;QT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClInclude Include="ColorBar.h" />
     <ClInclude Include="ConfigurableColorBar.h" />
+    <ClInclude Include="HeightScalaDraw.h" />
     <ClInclude Include="MemoryData.h" />
     <ClInclude Include="NonlinearityColorBarWidget.h" />
     <ClInclude Include="NonlinearityColorMap.h" />
@@ -120,6 +121,7 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_RadarPlotPicker.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_RasterPlot.cpp" />
+    <ClCompile Include="HeightScalaDraw.cpp" />
     <ClCompile Include="NonlinearityColorBarWidget.cpp" />
     <ClCompile Include="NonlinearityColorMap.cpp" />
     <ClCompile Include="ParseData.cpp" />

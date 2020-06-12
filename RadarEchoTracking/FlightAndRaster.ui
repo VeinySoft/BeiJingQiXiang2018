@@ -23,6 +23,28 @@
       <property name="margin">
        <number>2</number>
       </property>
+      <item row="1" column="2" rowspan="3">
+       <widget class="QFrame" name="frame">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0" colspan="2">
        <widget class="QListWidget" name="DateTimeListWidget">
         <property name="sizePolicy">
@@ -33,7 +55,7 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>280</width>
+          <width>257</width>
           <height>0</height>
          </size>
         </property>
@@ -74,7 +96,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>280</width>
+           <width>257</width>
            <height>198</height>
           </rect>
          </property>
@@ -182,22 +204,26 @@
            <string>加载轨迹...</string>
           </property>
          </widget>
-         <zorder>pushButton_2</zorder>
-         <zorder>pushButton_3</zorder>
-         <zorder>label</zorder>
-         <zorder>dateTimeEdit</zorder>
-         <zorder>label_2</zorder>
-         <zorder>dateTimeEdit_2</zorder>
-         <zorder>pushButton</zorder>
-         <zorder>frame</zorder>
-         <zorder>pushButton_4</zorder>
+         <widget class="QPushButton" name="pushButton_9">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>72</y>
+            <width>255</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>导出数据...</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="page_2">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>280</width>
+           <width>257</width>
            <height>198</height>
           </rect>
          </property>
@@ -295,29 +321,33 @@
            <string>绘制</string>
           </property>
          </widget>
+         <widget class="QPushButton" name="pushButton_8">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>78</y>
+            <width>255</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>导出数据...</string>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox">
+          <property name="geometry">
+           <rect>
+            <x>2</x>
+            <y>108</y>
+            <width>126</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>插值</string>
+          </property>
+         </widget>
         </widget>
-       </widget>
-      </item>
-      <item row="1" column="2" rowspan="3">
-       <widget class="QFrame" name="frame">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>200</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::NoFrame</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Plain</enum>
-        </property>
        </widget>
       </item>
      </layout>
