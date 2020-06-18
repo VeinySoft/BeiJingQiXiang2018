@@ -16,6 +16,7 @@
 #include <QtGui/QDialog>
 #include <QtGui/QGraphicsView>
 #include <QtGui/QGridLayout>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
 #include <QtGui/QPushButton>
 
@@ -27,6 +28,9 @@ public:
     QGridLayout *gridLayout_2;
     QGridLayout *gridLayout;
     QGraphicsView *graphicsView;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *pushButton_3;
+    QPushButton *pushButton_2;
     QPushButton *pushButton;
 
     void setupUi(QDialog *SectionDialog)
@@ -44,10 +48,26 @@ public:
 
         gridLayout->addWidget(graphicsView, 0, 0, 1, 1);
 
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        pushButton_3 = new QPushButton(SectionDialog);
+        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        pushButton_3->setCheckable(true);
+
+        horizontalLayout->addWidget(pushButton_3);
+
+        pushButton_2 = new QPushButton(SectionDialog);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+
+        horizontalLayout->addWidget(pushButton_2);
+
         pushButton = new QPushButton(SectionDialog);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
 
-        gridLayout->addWidget(pushButton, 1, 0, 1, 1);
+        horizontalLayout->addWidget(pushButton);
+
+
+        gridLayout->addLayout(horizontalLayout, 1, 0, 1, 1);
 
 
         gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
@@ -61,6 +81,8 @@ public:
     void retranslateUi(QDialog *SectionDialog)
     {
         SectionDialog->setWindowTitle(QApplication::translate("SectionDialog", "Dialog", 0, QApplication::UnicodeUTF8));
+        pushButton_3->setText(QApplication::translate("SectionDialog", "\346\250\252\345\235\220\346\240\207\344\270\272\347\273\217\347\272\254\345\272\246", 0, QApplication::UnicodeUTF8));
+        pushButton_2->setText(QApplication::translate("SectionDialog", "\345\257\274\345\207\272CVS", 0, QApplication::UnicodeUTF8));
         pushButton->setText(QApplication::translate("SectionDialog", "\344\277\235\345\255\230\345\233\276\347\211\207", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

@@ -180,6 +180,7 @@ void DrawClipLine::CreateLineGeometry()
 			pixmap = QPixmap::fromImage(*pImage);
 
 			s_pSectionImageDialog->UpdateImage(pixmap);
+			s_pSectionImageDialog->UpdateRelevantValue(m_pCI, m_FileName, p1, p2);
 			//m_KeySwitch->selectMatrixManipulator(0);
 			delete pImage;
 			//dialog.exec();

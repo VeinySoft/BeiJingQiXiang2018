@@ -8,7 +8,6 @@
 
 #include "stdafx.h"
 #include "../SectionImageDialog.h"
-#include "ui_PaoDianDockWidget.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'SectionImageDialog.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 63
@@ -24,7 +23,7 @@ static const uint qt_meta_data_SectionImageDialog[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -33,12 +32,14 @@ static const uint qt_meta_data_SectionImageDialog[] = {
 
  // slots: signature, parameters, type, tag, flags
       20,   19,   19,   19, 0x08,
+      41,   19,   19,   19, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_SectionImageDialog[] = {
     "SectionImageDialog\0\0slot_SaveImage(bool)\0"
+    "slot_SaveCSV(bool)\0"
 };
 
 void SectionImageDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -48,6 +49,7 @@ void SectionImageDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         SectionImageDialog *_t = static_cast<SectionImageDialog *>(_o);
         switch (_id) {
         case 0: _t->slot_SaveImage((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 1: _t->slot_SaveCSV((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -85,9 +87,9 @@ int SectionImageDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     }
     return _id;
 }

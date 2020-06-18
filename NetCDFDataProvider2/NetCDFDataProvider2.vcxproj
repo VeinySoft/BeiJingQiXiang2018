@@ -32,6 +32,7 @@
     <Import Project="..\RadarEchoTracking\OSGDebugPropertySheet.props" />
     <Import Project="..\RadarEchoTracking\GEOSDebug.props" />
     <Import Project="..\RadarEchoTracking\BoostSheet.props" />
+    <Import Project="..\RadarEchoTracking\Proj4Debug.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -41,6 +42,7 @@
     <Import Project="..\RadarEchoTracking\OSGRelease.props" />
     <Import Project="..\RadarEchoTracking\QTDIRRelease.props" />
     <Import Project="..\RadarEchoTracking\GeosOnTheOsgRelease.props" />
+    <Import Project="..\RadarEchoTracking\Proj4Debug.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>

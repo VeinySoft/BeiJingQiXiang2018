@@ -5,6 +5,7 @@
 #include "MainWindow.h"
 #include "../FlightPathProvider/FlightPathControler.h"
 
+#define MAKE_CSV_LINE(v1, v2, v3, v4) v1 + QString::fromLocal8Bit(",") + v2 + QString::fromLocal8Bit(",") + v3 + QString::fromLocal8Bit(",") + v4 + "\n"
 
 template <typename DT>
 void setValue(DT* data, const DT& tV, size_t size)
@@ -626,7 +627,7 @@ void FlightAndRasterWindow::slot_ExportDrawFlightRaster(bool)
 	if(writeFile.open(QFile::WriteOnly | QFile::Truncate))
 	{
 		QTextStream textSteam(&writeFile);
-
+		QString tempString;
 		for(size_t i = m_iDTSelectStartIndex; i < m_FlyDataCols; i++)
 		{
 			osg::Vec3 currentVec3 = m_FlightPathControler->GetFlightPath()->at(i);
@@ -635,10 +636,21 @@ void FlightAndRasterWindow::slot_ExportDrawFlightRaster(bool)
 			{
 				int iStartHeight = 500 + (i * 1000);
 				pData += j;
-				textSteam<<currentVec3.x()<<","<<currentVec3.y()<<","<<iStartHeight<<","<<*pData<<endl;
+
+				QString v1("%1"), v2("%1"), v3("%1"), v4("%1");
+						v1 = v1.arg(currentVec3.x(), 0, 'f', 2);
+						v2 = v2.arg(currentVec3.y(), 0, 'f', 2);
+						v3 = v3.arg((int)iStartHeight);
+						v4 = v4.arg((int)*pData);
+
+				QString temp = MAKE_CSV_LINE(v1, v2, v3, v4);
+				tempString.push_back(temp);
+				//textSteam<<currentVec3.x()<<","<<currentVec3.y()<<","<<iStartHeight<<","<<*pData<<endl;
 			}
 			
 		}
+
+		textSteam<<tempString;
 		writeFile.close();
 	}
 
