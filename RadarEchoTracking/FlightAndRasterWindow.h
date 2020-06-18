@@ -12,8 +12,10 @@ class FlightAndRasterWindow :
 	Q_OBJECT
 public:
 	typedef QWidget* (*FUNDEF_OpenRasterFile)(int iIndex, const QString& strTitle, const QString& fileName, MemoryData* pGMD);
+	typedef void (*FUNDEF_DrawCurve)(int iIndex, const QVector<QPointF>& samplesData);
 	typedef QWidget* (*FUNDEF_GetPlotWidget)();
 	typedef void (*FUNDEF_ReplotData)(int iIndex);
+	typedef void (*FUNDEF_ClearPlot)(int iIndex);
 	FlightAndRasterWindow(MainWindow* pM);
 	~FlightAndRasterWindow(void);
 	void FillList();
@@ -28,6 +30,9 @@ private:
 	FUNDEF_OpenRasterFile m_funOpenRasterFile;
 	FUNDEF_GetPlotWidget m_funGetPlotWidget;
 	FUNDEF_ReplotData m_funReplotData;
+	FUNDEF_ClearPlot m_funClearPlot;
+	FUNDEF_DrawCurve m_funDrawCurve;
+
 	Ui::FlightAndRaster m_setup;
 	FlightPathControler* m_FlightPathControler;
 	ControlorInterface* m_pControlorInterface;
@@ -38,8 +43,11 @@ private:
 	bool m_bMatched;
 	MainWindow* m_pMainWindow;
 	double* m_pCurrentFixRasterData;
+	double* m_pCurrentFlyRasterData;
 	size_t m_FixDataRows;
 	size_t m_FixDataCols;
+	size_t m_FlyDataRows;
+	size_t m_FlyDataCols;
 	//QStringList m_DTSelectList;
 public slots:
 	void slot_MatchData(bool);

@@ -49,6 +49,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	g_GlobleConfig.Read("./Config/RadarTrack.xml");
 	
 	QApplication app(argc, argv);
+	/*QStringList keysList = QStyleFactory::keys();
+	for(int i = 0; i < keysList.size(); i++)
+	{
+		qDebug()<<keysList.at(i)<<endl;
+	}*/
+
+	app.setStyle(QStyleFactory::create("Plastique"));
 #if 1
 	MainWindow mw;
 	g_MainWindow = &mw;

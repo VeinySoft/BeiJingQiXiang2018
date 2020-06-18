@@ -5,10 +5,20 @@
 #include "MainWindow.h"
 #include "../FlightPathProvider/FlightPathControler.h"
 
+
+template <typename DT>
+void setValue(DT* data, const DT& tV, size_t size)
+{
+	for(size_t i = 0; i < size; i ++)
+	{
+		*(data + i) = tV;
+	}
+}
+
 FlightAndRasterWindow::FlightAndRasterWindow(MainWindow* pM)
 	: m_bMatched(false), m_funOpenRasterFile(0), m_FlightPathControler(0), m_pControlorInterface(0)
 	, m_funGetPlotWidget(0), m_funReplotData(0), m_pMainWindow(pM), m_iDTSelectStartIndex(-1), m_iDTSelectEndIndex(-1)
-	, m_pCurrentFixRasterData(0)
+	, m_pCurrentFixRasterData(0), m_pCurrentFlyRasterData(0)
 {
 	m_setup.setupUi(this);
 	m_setup.label->hide();
@@ -43,6 +53,8 @@ FlightAndRasterWindow::FlightAndRasterWindow(MainWindow* pM)
 		m_funOpenRasterFile = (FUNDEF_OpenRasterFile)plotLib.resolve("OpenRasterFile");
 		m_funGetPlotWidget = (FUNDEF_GetPlotWidget)plotLib.resolve("GetPlotWidget");
 		m_funReplotData = (FUNDEF_ReplotData)plotLib.resolve("ReplotData");
+		m_funClearPlot = (FUNDEF_ClearPlot)plotLib.resolve("ClearPlot");
+		m_funDrawCurve = (FUNDEF_DrawCurve)plotLib.resolve("DrawCurve");
 
 		QWidget* pPlotWidget = m_funGetPlotWidget();
 		m_setup.gridLayout->addWidget(pPlotWidget, 1, 2, 6, 1);
@@ -65,6 +77,12 @@ FlightAndRasterWindow::~FlightAndRasterWindow(void)
 void FlightAndRasterWindow::FillList()
 {
 	m_setup.DateTimeListWidget->clear();
+
+	if(m_FlightPathControler == NULL)
+	{
+		QMessageBox::warning(this, QString::fromLocal8Bit("绘制剖面时发生错误"), QString::fromLocal8Bit("没有加载任何轨迹文件，无法绘制剖面图。"));
+		return;
+	}
 
 	QStringList strDateList = m_FlightPathControler->GetDateList();
 	QStringList strTimeList = m_FlightPathControler->GetTimeList();
@@ -90,6 +108,9 @@ void FlightAndRasterWindow::FillList()
 
 void FlightAndRasterWindow::slot_ClearMatch(bool)
 {
+	if(m_pCurrentFlyRasterData)
+		delete[] m_pCurrentFlyRasterData;
+
 	FillList();
 	m_bMatched = false;
 }
@@ -131,33 +152,50 @@ void FlightAndRasterWindow::slot_MatchData(bool)
 
 void FlightAndRasterWindow::slot_DrawRaster(bool)
 {
-	if(m_FlightPathControler == NULL)
+	if(m_FlightPathControler == NULL || m_MatchFileList.size() == 0)
 	{
 		QMessageBox::warning(this, QString::fromLocal8Bit("绘制剖面错误发生"), QString::fromLocal8Bit("没有加载任何轨迹文件，无法绘制剖面图。"));
 		return;
 	}
 
+	if(m_pCurrentFlyRasterData)
+	{
+		delete[] m_pCurrentFlyRasterData;
+		m_pCurrentFlyRasterData = 0;
+	}
+	QString strTtile = QString::fromLocal8Bit("飞行轨迹剖面图");
+	QString strFirstFile = m_MatchFileList.at(0);
+
 	int iLayerCount = 20;
 	MemoryData md;
+	md.TimeInterval = 1;
+	md.StartDateTime = QDateTime::fromString(strFirstFile, "yyyyMMddhhmmss");
+
 	md.fXMin = 0;
-	md.fXMax = m_iDTSelectEndIndex - m_iDTSelectStartIndex + 1;
+	md.fXMax = m_iDTSelectEndIndex - m_iDTSelectStartIndex;
 	md.fXInterval = 360;
 	
-	md.fYMin = 0;
-	md.fYMax = 19;
-	md.fYInterval = 1;
+	md.fYMin = 500;
+	md.fYMax = 19000;
+	md.fYInterval = 1000;
+	md.HeightScale = 1;
 
-	md.fZMin = -5;
-	md.fZMax = 70;
+	md.fZMin = -45;
+	md.fZMax = 30;
 	md.fZInterval = 5;
+
+	md.strXComment = strFirstFile.toStdString();
+	md.strYComment = QString("(KM)").toStdString();
 
 	int DTCount = m_iDTSelectEndIndex - m_iDTSelectStartIndex + 1;
 	md.DataSize = DTCount * iLayerCount;
 	md.ColumnCount = DTCount;
 	md.pData = new double[md.DataSize];
-	memset(md.pData, 100, sizeof(double) * md.DataSize);
+
+	setValue<double>(md.pData, 100.00, md.DataSize);
 	//使用影射将坐标归类到对应的文件中
 	QMap<QString, osg::ref_ptr<osg::Vec3Array>> dataMap;
+	QVector<QPointF> lineData;
 	for(int i = m_iDTSelectStartIndex; i < DTCount; i++)
 	{
 		QListWidgetItem* item = m_setup.DateTimeListWidget->item(i);
@@ -168,6 +206,8 @@ void FlightAndRasterWindow::slot_DrawRaster(bool)
 		QString strName = strText.mid(iIndex1 + 1, iIndex2 - iIndex1 - 1);
 
 		osg::Vec3 currentVec3 = m_FlightPathControler->GetFlightPath()->at(i);
+
+		lineData.push_back(QPointF(i, currentVec3.z()));
 		if(strName.length() > 0)
 		{
 			//
@@ -205,9 +245,16 @@ void FlightAndRasterWindow::slot_DrawRaster(bool)
 		iterBegin++;
 	}
 
-	m_funOpenRasterFile(0, "RasterData", "./Config/ColorTable.ini", &md);
+	m_pCurrentFlyRasterData = md.pData;
+	m_FlyDataCols = md.fXMax + 1;
+	m_FlyDataRows = md.DataSize/m_FlyDataCols;
+
+	m_funClearPlot(0);
+	m_funDrawCurve(0, lineData);
+	m_funOpenRasterFile(0, QString::fromLocal8Bit("飞行轨迹剖面"), "./Config/ColorTable.ini", &md);
 	m_funReplotData(0);
 
+	//delete[] md.pData;
 	//pWidget->setParent(this);
 	//pWidget->show();
 	
@@ -331,24 +378,16 @@ void WriteFile(const QString& strFile, double* data, int rows, int cols)
 	}
 }
 
-template <typename DT>
-void setValue(DT* data, const DT& tV, size_t size)
-{
-	for(size_t i = 0; i < size; i ++)
-	{
-		*(data + i) = tV;
-	}
-}
-
 void FlightAndRasterWindow::slot_DrawFixPointRaster(bool)
 {
-	if(m_pCurrentFixRasterData)
+	if(m_pCurrentFixRasterData)//删除之前的绘制数据,因为涉及到导出数据所以要保存这个指针
 	{
 		delete[] m_pCurrentFixRasterData;
 		m_pCurrentFixRasterData = NULL;
 	}
+
 	QString strTtile = QString::fromLocal8Bit("定点剖面图");
-	if(m_MatchFileList.size() == 0 || m_iDTSelectEndIndex < 0 || m_iDTSelectStartIndex < 0)
+	if(m_MatchFileList.size() == 0 || m_iDTSelectEndIndex < 0 || m_iDTSelectStartIndex < 0 || m_setup.DateTimeListWidget->count() == 0)
 	{
 		QMessageBox::warning(this, QString::fromLocal8Bit("绘制剖面错误发生"), QString::fromLocal8Bit("没有任何匹配文件数据，无法绘制剖面图。"));
 		return;
@@ -382,7 +421,7 @@ void FlightAndRasterWindow::slot_DrawFixPointRaster(bool)
 	md.DataSize = DTCount * iLayerCount;
 	md.ColumnCount = DTCount;
 	md.pData = new double[md.DataSize];
-	memset(md.pData, 100, sizeof(double) * md.DataSize);
+	setValue<double>(md.pData, 100.00, md.DataSize);
 	
 	FILE_MAP dataMap;
 	for(int i = m_iDTSelectStartIndex; i < DTCount; i++)
@@ -466,14 +505,15 @@ void FlightAndRasterWindow::slot_DrawFixPointRaster(bool)
 	m_FixDataCols = md.fXMax + 1;
 	m_FixDataRows = md.DataSize/m_FixDataCols;
 
+	m_funClearPlot(0);
 	m_funOpenRasterFile(0, strTtile, "./Config/ColorTable.ini", &md);
 	m_funReplotData(0);
-
-	//delete[] md.pData;
 }
 
 void FlightAndRasterWindow::slot_ClearFixPointMatch(bool)
 {
+	if(m_pCurrentFixRasterData)
+		delete[] m_pCurrentFixRasterData;
 	m_setup.DateTimeListWidget->clear();
 }
 
@@ -572,6 +612,37 @@ void FlightAndRasterWindow::LinearInterpolation(double* srcBuff, size_t rowsSrc,
 
 void FlightAndRasterWindow::slot_ExportDrawFlightRaster(bool)
 {
+	if(!m_pCurrentFlyRasterData)
+	{
+		QMessageBox::warning(this, QString::fromLocal8Bit("导出剖面数据"), QString::fromLocal8Bit("没有任何匹配文件数据，无法导出剖面数据。"));
+
+		return;
+	}
+	QString strFileName = QFileDialog::getSaveFileName(this
+			, QString::fromLocal8Bit("导出雷达数据"), "", "csv (*.csv)");
+
+	QFile writeFile(strFileName);
+
+	if(writeFile.open(QFile::WriteOnly | QFile::Truncate))
+	{
+		QTextStream textSteam(&writeFile);
+
+		for(size_t i = m_iDTSelectStartIndex; i < m_FlyDataCols; i++)
+		{
+			osg::Vec3 currentVec3 = m_FlightPathControler->GetFlightPath()->at(i);
+			double* pData = m_pCurrentFlyRasterData + i * m_FlyDataRows;
+			for(size_t j = 0; j <  m_FlyDataRows; j++)
+			{
+				int iStartHeight = 500 + (i * 1000);
+				pData += j;
+				textSteam<<currentVec3.x()<<","<<currentVec3.y()<<","<<iStartHeight<<","<<*pData<<endl;
+			}
+			
+		}
+		writeFile.close();
+	}
+
+	
 }
 
 void FlightAndRasterWindow::slot_exportDrawFixRaster(bool)

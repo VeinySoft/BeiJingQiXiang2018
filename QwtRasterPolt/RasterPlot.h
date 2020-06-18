@@ -10,6 +10,7 @@ public:
 	inline void SetAxisColorMap(QwtColorMap* pColorMap) { m_pAxisColorMap = pColorMap; }
 
 	void DrawPlot(const double& dMinX, const double& dMaxX, const double& dIntervalX, const double& dMinY, const double& dMaxY, const double& dIntervalY);
+	void OverlayCurve(const QVector<QPointF>& samplesData);
 	inline void SetStartDateTime(const QDateTime& t, int timeInterval) { m_StartDateTime = t; m_iXScaleDrawInterval = timeInterval;}
 	inline void SetYScaleDrawInterval(double dS){m_iYScaleDrawInterval = dS;}
 	void showInfo(QString text);

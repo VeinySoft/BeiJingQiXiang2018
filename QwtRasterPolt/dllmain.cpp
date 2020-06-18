@@ -33,6 +33,15 @@ RasterPlot* GetRasterPlot(int iIndex)
 	return plot;
 }
 
+void ClearPlot(int iIndex)
+{
+	RasterPlot* plot = GetRasterPlot(iIndex);
+	if(plot)
+	{
+		plot->detachItems();
+	}
+}
+
 void ReplotData(int iIndex)
 {
 	RasterPlot* plot = GetRasterPlot(iIndex);
@@ -40,6 +49,13 @@ void ReplotData(int iIndex)
 	{
 		plot->replot();
 	}
+}
+
+void DrawCurve(int iIndex, const QVector<QPointF>& samplesData)
+{
+	RasterPlot* plot = GetRasterPlot(iIndex);
+	if(plot)
+		plot->OverlayCurve(samplesData);
 }
 
 QWidget* OpenRasterFile(int iIndex, const QString& strTitle, const QString& fileName, MemoryData* pGMD)
@@ -58,7 +74,7 @@ QWidget* OpenRasterFile(int iIndex, const QString& strTitle, const QString& file
 	RadarColorMap* RCM = new RadarColorMap;
 	ConfigurableColorBar ccb;
 	ccb.LoadData(colorTableFile.toStdString());
-	QString strRightName = "strRightName";
+	QString strRightName = "";
 	ParseMemoryRasterData pmrd;
 	pmrd.ReadDataFromMemory(pGMD);
 
@@ -113,7 +129,6 @@ QWidget* OpenRasterFile(int iIndex, const QString& strTitle, const QString& file
 		plot->SetRasterData(pRRD);
 		plot->SetYScaleDrawInterval(pGMD->HeightScale);
 		plot->DrawPlot(pGMD->fXMin, pGMD->fXMax, pGMD->fXInterval, pGMD->fYMin, pGMD->fYMax, pGMD->fYInterval);
-
 		return plot;
 	}
 	else

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "RasterPlot.h"
+#include <Qwt_Plot_Curve.h>
 //#include "NonlinearityColorBarWidget.h"
 #include "RadarPlotPicker.h"
 #include "TimeScaleDraw.h"
@@ -147,11 +148,27 @@ void RasterPlot::DrawPlot(const double& dMinX, const double& dMaxX, const double
 
 	pPicker->SetData(m_pRasterData);
 	pPicker->SetDateTime(m_StartDateTime);
-
+	pPicker->SetScale(m_iXScaleDrawInterval);
 	m_picker = pPicker;
 
 	connect(m_picker, SIGNAL(CurrentPoint(const QPointF &)),
 		SLOT(slot_CurrentPoint(const QPointF &)));
+}
+
+void RasterPlot::OverlayCurve(const QVector<QPointF>& samplesData)
+{
+	//新建一个曲线对象
+	QwtPlotCurve *pCurve=new QwtPlotCurve("FlightPath");
+	//输入数据
+	pCurve->setSamples(samplesData);
+	pCurve->attach(this);
+  
+	//设置曲线颜色
+	QPen pen;
+	pen.setColor(QColor(0,0,0)); 
+	pCurve->setPen(pen);
+	//抗锯齿
+	pCurve->setRenderHint(QwtPlotItem::RenderAntialiased,true);
 }
 
 void RasterPlot::exportPlot()

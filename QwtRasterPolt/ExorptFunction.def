@@ -3,3 +3,5 @@ EXPORTS
 	OpenRasterFile		@1
 	GetPlotWidget		@2
 	ReplotData			@3
+	ClearPlot			@4
+	DrawCurve			@5

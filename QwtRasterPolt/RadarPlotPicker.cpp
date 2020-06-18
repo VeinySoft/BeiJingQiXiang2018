@@ -2,18 +2,18 @@
 #include "RadarPlotPicker.h"
 
 
-RadarPlotPicker::RadarPlotPicker(QWidget *canvas) : QwtPlotPicker(canvas)
+RadarPlotPicker::RadarPlotPicker(QWidget *canvas) : QwtPlotPicker(canvas), m_pMyData(NULL), m_dScale(1)
 {
 }
 
-RadarPlotPicker::RadarPlotPicker(int xAxis, int yAxis, QWidget * canvas) : QwtPlotPicker(xAxis, yAxis, canvas)
+RadarPlotPicker::RadarPlotPicker(int xAxis, int yAxis, QWidget * canvas) : QwtPlotPicker(xAxis, yAxis, canvas), m_pMyData(NULL)
 {
 }
 
 
 RadarPlotPicker::RadarPlotPicker(int xAxis, int yAxis, RubberBand rubberBand
 	, DisplayMode trackerMode, QWidget * canvas):QwtPlotPicker(xAxis, yAxis
-		, rubberBand, trackerMode, canvas)
+		, rubberBand, trackerMode, canvas), m_pMyData(NULL)
 {
 }
 
@@ -46,7 +46,7 @@ QwtText RadarPlotPicker::trackerTextF(const QPointF & point) const
 	}
 
 	QString strHeight = QString("%1").arg(point.y());
-	QTime currentTime = m_StartTime.time().addSecs(point.x()*60.0);
+	QTime currentTime = m_StartTime.time().addSecs(point.x()*m_dScale);
 	QString strTimeText = QString("%1").arg(currentTime.toString("hh:mm:ss.zzz"));
 	outText.setText("[" + strTimeText + outText.text() + ", ");
 	outText.setText(outText.text() + strHeight + " KM" + "] = " + QString("%1").arg(value));

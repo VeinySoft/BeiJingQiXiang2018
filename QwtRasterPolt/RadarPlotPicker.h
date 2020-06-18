@@ -15,7 +15,7 @@ public:
 
 	inline void SetData(QwtMatrixRasterData* data) { m_pMyData = data; }
 	inline void SetDateTime(const QDateTime& dt) { m_StartTime = dt; }
-
+	inline void SetScale(double dS){m_dScale = dS;}
 protected:
 	virtual QwtText trackerText(const QPoint &) const;
 	virtual QwtText trackerTextF(const QPointF &) const;
@@ -28,6 +28,7 @@ Q_SIGNALS:
 	void CurrentPoint(const QPointF & posF) const;
 
 private:
+	double m_dScale;
 	QwtMatrixRasterData* m_pMyData;
 	QDateTime m_StartTime;
 };
