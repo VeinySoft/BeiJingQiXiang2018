@@ -23,7 +23,7 @@ static const uint qt_meta_data_RasterPlot[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -35,16 +35,14 @@ static const uint qt_meta_data_RasterPlot[] = {
 
  // slots: signature, parameters, type, tag, flags
       45,   11,   11,   11, 0x0a,
-      58,   11,   11,   11, 0x0a,
-      79,   12,   11,   11, 0x0a,
+      66,   12,   11,   11, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_RasterPlot[] = {
     "RasterPlot\0\0pos\0signal_CurrentPoint(QPointF)\0"
-    "exportPlot()\0setResampleMode(int)\0"
-    "slot_CurrentPoint(QPointF)\0"
+    "setResampleMode(int)\0slot_CurrentPoint(QPointF)\0"
 };
 
 void RasterPlot::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -54,9 +52,8 @@ void RasterPlot::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         RasterPlot *_t = static_cast<RasterPlot *>(_o);
         switch (_id) {
         case 0: _t->signal_CurrentPoint((*reinterpret_cast< const QPointF(*)>(_a[1]))); break;
-        case 1: _t->exportPlot(); break;
-        case 2: _t->setResampleMode((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 3: _t->slot_CurrentPoint((*reinterpret_cast< const QPointF(*)>(_a[1]))); break;
+        case 1: _t->setResampleMode((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 2: _t->slot_CurrentPoint((*reinterpret_cast< const QPointF(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -94,9 +91,9 @@ int RasterPlot::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 3;
     }
     return _id;
 }

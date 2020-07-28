@@ -86,4 +86,6 @@ void RadarRasterData::Make(ParseData* pPD)
 	setInterval(Qt::YAxis,
 		QwtInterval(fYMin, fYMax));
 	setInterval(Qt::ZAxis, QwtInterval(fZMin, fZMax));
+
+	delete[] pTempBuffer;
 }

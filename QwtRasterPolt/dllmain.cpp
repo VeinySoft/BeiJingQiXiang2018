@@ -33,6 +33,15 @@ RasterPlot* GetRasterPlot(int iIndex)
 	return plot;
 }
 
+void ExportPlotImage(int iIndex, const QString& strImageFile)
+{
+	RasterPlot* plot = GetRasterPlot(iIndex);
+	if(plot)
+	{
+		plot->exportPlot(strImageFile);
+	}
+}
+
 void ClearPlot(int iIndex)
 {
 	RasterPlot* plot = GetRasterPlot(iIndex);
@@ -118,7 +127,7 @@ QWidget* OpenRasterFile(int iIndex, const QString& strTitle, const QString& file
 		bottomTitle.setText(QString::fromLocal8Bit("") + dt.date().toString("yyyyMMdd")); bottomTitle.setFont(globleFont);
 		
 		plot->setTitle(strTitle);
-		plot->SetStartDateTime(dt, pGMD->TimeInterval);
+		plot->SetStartDateTime(pGMD->StartDateTime, pGMD->TimeInterval);
 
 		plot->setAxisTitle(QwtPlot::xBottom, bottomTitle);
 		plot->setAxisTitle(QwtPlot::yLeft, leftTitle);

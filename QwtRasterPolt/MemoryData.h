@@ -25,7 +25,7 @@ struct MemoryData
 	std::string strTtile;
 
 	QDateTime StartDateTime;
-	int TimeInterval;
+	double TimeInterval;
 	
 	double HeightScale;
 	//AdditionalData* OtherData;

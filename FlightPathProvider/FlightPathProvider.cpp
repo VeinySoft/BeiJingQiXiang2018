@@ -5,12 +5,20 @@
 #include "FlightPath.h"
 #include "FlightPathControlerImps.h"
 
-FlightPathProvider::FlightPathProvider()  : m_lonlatArray(new osg::Vec3Array), m_pFlightPathControler(new FlightPathControlerImps(this))
+FlightPathProvider::FlightPathProvider()  : m_lonlatArray(new osg::Vec3Array), m_pFlightPathControler(new FlightPathControlerImps(this)), m_pFlightPath(NULL)
 {
 	this->InsertExtendInterface(m_pFlightPathControler);
 }
 bool FlightPathProvider::LoadFile(const std::string& filename)
 {
+	if(m_lonlatArray->size() != 0 && m_pFlightPath != NULL)
+	{
+		m_lonlatArray->clear();
+		delete m_pFlightPath;
+		m_pFlightPath = NULL;
+		m_strDataList.clear();
+		m_strTimeList.clear();
+	}
 	QFile file(filename.c_str());
 	file.open(QIODevice::ReadOnly);
 

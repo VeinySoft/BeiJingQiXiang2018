@@ -5,3 +5,4 @@ EXPORTS
 	ReplotData			@3
 	ClearPlot			@4
 	DrawCurve			@5
+	ExportPlotImage		@6

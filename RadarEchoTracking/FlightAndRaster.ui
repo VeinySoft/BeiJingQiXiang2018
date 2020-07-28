@@ -89,7 +89,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page">
          <property name="geometry">
@@ -107,8 +107,8 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>24</y>
-            <width>129</width>
+            <y>26</y>
+            <width>127</width>
             <height>23</height>
            </rect>
           </property>
@@ -119,9 +119,9 @@
          <widget class="QPushButton" name="pushButton_3">
           <property name="geometry">
            <rect>
-            <x>128</x>
-            <y>24</y>
-            <width>129</width>
+            <x>0</x>
+            <y>50</y>
+            <width>257</width>
             <height>23</height>
            </rect>
           </property>
@@ -182,9 +182,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>48</y>
+            <y>74</y>
             <width>257</width>
-            <height>23</height>
+            <height>29</height>
            </rect>
           </property>
           <property name="text">
@@ -208,13 +208,26 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>72</y>
-            <width>255</width>
+            <y>104</y>
+            <width>257</width>
             <height>23</height>
            </rect>
           </property>
           <property name="text">
            <string>导出数据...</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_10">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>26</y>
+            <width>127</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>自动匹配</string>
           </property>
          </widget>
         </widget>
@@ -348,6 +361,19 @@
           </property>
          </widget>
         </widget>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pushButton_11">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>导出图片...</string>
+        </property>
        </widget>
       </item>
      </layout>

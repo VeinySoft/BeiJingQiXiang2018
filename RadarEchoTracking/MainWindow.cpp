@@ -648,6 +648,7 @@ void MainWindow::InitRasterWindow()
 	if(m_pRasterWindow != 0)
 	{
 		m_pRasterWindow->SetMapToFilePath(&m_FileBaseMapToFilePath);
+		m_pRasterWindow->SetFileList(&m_FileList);
 		connect(this, SIGNAL(signal_SelectFiles(const QStringList&)), m_pRasterWindow, SLOT(slot_updateSelectNcFiles(const QStringList&)));
 	}
 }
@@ -874,19 +875,22 @@ void MainWindow::ExportRegionData()
 	if(selectBoxes.size() <= 0)
 	{
 		QMessageBox::warning(this, QString::fromLocal8Bit("导出框"), QString::fromLocal8Bit("请选择导出框。（可多选）"));
+		return;
 	}
 
-	QString strPath = QFileDialog::getExistingDirectory(this, QString::fromLocal8Bit("保存跟踪结果"));
-	if(strPath.size() == 0) return;
+	QString strOutCSV = QFileDialog::getSaveFileName(this, QString::fromLocal8Bit("导出框内雷达数据"), "", "csv (*.csv)");
+	if(strOutCSV.size() == 0) return;
 
 	for(int i = 0; i < selectBoxes.size(); i++)
 	{
 		QStandardItem* item =  m_pTrackBoxItemModel->item(selectBoxes.at(i).row());
 		cube_data cd = g_GlobleConfig.GetCubeFromName(item->text());
+		int upHeight = getHeightIndex(cd.height_up.toInt());
+		int downHeight = getHeightIndex(cd.height_down.toInt());
 		QString strName = GetSelectFileName();
 		QString strFilePath = m_FileBaseMapToFilePath.value(strName);
-		QString strOutCSV = strPath + QDir::separator() + QString::fromLocal8Bit("_") + cd.name + strName + QString::fromLocal8Bit(".csv");
-		m_pControlorInterface->ExportPartNcFile(strFilePath, osg::Vec3(cd.left_top_lon, cd.left_top_lat, 0), osg::Vec3(cd.right_bottom_lon, cd.right_bottom_lat, 0), 0, strOutCSV);
+		//QString strOutCSV = strPath + QDir::separator() + QString::fromLocal8Bit("_") + cd.name + strName + QString::fromLocal8Bit(".csv");
+		m_pControlorInterface->ExportPartNcFile(strFilePath, osg::Vec3(cd.left_top_lon, cd.left_top_lat, 0), osg::Vec3(cd.right_bottom_lon, cd.right_bottom_lat, 0), 0, upHeight, downHeight, strOutCSV);
 	}
 }
 
@@ -1959,7 +1963,8 @@ int MainWindow::GetRealTrackFileID( QPair<QString, QString>& filePair, int iType
 
 QString& MainWindow::GetRealTrackFilePath( const QString& strID )
 {
-	return QString("");
+	static QString temp;
+	return temp;
 }
 
 void MainWindow::slot_InsertFile( const QString& fileBase )
@@ -2435,7 +2440,7 @@ FlightPathControler* MainWindow::LoadFlightPath(const QString& fileName)
 	pGOTO->OpenDataAsLayer(fileName.toStdString(), pLayer);
 	pLayer->CoordTrans(m_pMap->GetCoordinateTransform());
 	pLayer->Visible(true);
-	pLayer->SetLineWidth(200.0f);
+	pLayer->SetLineWidth(3.0f);
 	pLayer->LayerZ(-20);
 	pLayer->SetLayerColor(osg::Vec4(180/255.0, 0, 0, 1));
 	pLayer->CreateLayerData();

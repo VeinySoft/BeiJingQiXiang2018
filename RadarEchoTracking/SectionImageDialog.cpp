@@ -6,7 +6,7 @@ SectionImageDialog::SectionImageDialog()
 {
 	m_pPixmapItem = 0;
 	m_Step.setupUi(this);
-
+	m_Step.pushButton_3->hide();
 	QGraphicsScene* pScene = new QGraphicsScene;
 	m_Step.graphicsView->setScene(pScene);
 

@@ -171,10 +171,10 @@ void RasterPlot::OverlayCurve(const QVector<QPointF>& samplesData)
 	pCurve->setRenderHint(QwtPlotItem::RenderAntialiased,true);
 }
 
-void RasterPlot::exportPlot()
+void RasterPlot::exportPlot(const QString& fileName)
 {
     QwtPlotRenderer renderer;
-    renderer.exportTo( this, "rasterview.jpg" );
+    renderer.exportTo( this, fileName);
 }
 
 void RasterPlot::setResampleMode( int mode )

@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "TimeScaleDraw.h"
 
-TimeScaleDraw::TimeScaleDraw(const QDateTime & base, int iInterval) :
-	baseTime(base), m_iInterval(iInterval)
+TimeScaleDraw::TimeScaleDraw(const QDateTime & base, double dInterval) :
+	baseTime(base), m_dInterval(dInterval)
 {
 }
 
 QwtText TimeScaleDraw::label(double v) const
 {
-	QDateTime upTime = baseTime.addSecs((int)v * m_iInterval);
+	QDateTime upTime = baseTime.addSecs(v * m_dInterval);
 	QString strOutLabel = upTime.toString("hh:mm:ss");
 	return strOutLabel;
 }

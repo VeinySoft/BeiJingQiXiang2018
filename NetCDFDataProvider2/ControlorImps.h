@@ -111,7 +111,7 @@ public:
 	virtual QImage*  GetSectionNcFile( const std::string& strName, osg::Vec3 p1, osg::Vec3 p2 );
 	virtual int GetRectVertex(const std::string& strName, osg::Vec3& p1, osg::Vec3& p2, osg::Vec3& p3, osg::Vec3& p4);
 
-	virtual int ExportPartNcFile(const QString& strName, osg::Vec3 p1, osg::Vec3 p2, int iMode, const QString& strExortFile);
+	virtual int ExportPartNcFile(const QString& strName, osg::Vec3 p1, osg::Vec3 p2, int iMode, int upIndex, int downIndex, const QString& strExortFile);
 	virtual int ExportSctionFile(const QString& strName, osg::Vec3 p1, osg::Vec3 p2, int iMode, const QString& strExortFile);
 
 	virtual int GetVerticalData(const std::string& strName, osg::Vec3Array& vec3Array, osg::Vec3 p2, double* pData, size_t* pSize);

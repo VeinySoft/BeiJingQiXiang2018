@@ -26,7 +26,7 @@
   <ItemGroup>
     <None Include="ReadMe.txt" />
     <None Include="ExorptFunction.def">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -1593,160 +1593,371 @@ bool MakeTextureImps::loadNcFileToGeometry( NcFile *pNcFile, osg::ref_ptr<osg::V
 	return true;
 }
 
-int MakeTextureImps::ExportPartNcFile(NcFile *pNcFile, osg::Vec3 p1, osg::Vec3 p2, int iMode, const QString& strExortFile)
+int MakeTextureImps::ExportPartNcFile(NcFile *pNcFile, osg::Vec3 p1, osg::Vec3 p2, int iMode, int upIndex, int downIndex, const QString& strExortFile)
 {
+	QFile csvFile(strExortFile);
+	if(!csvFile.open(QIODevice::Truncate|QIODevice::WriteOnly|QIODevice::Text)) return 0;
+	QTextStream ts(&csvFile);
+	CSV_LINE(ts, QString::fromLocal8Bit("lon"), QString::fromLocal8Bit("lat"), QString::fromLocal8Bit("layer"), QString::fromLocal8Bit("value"));
+	QString* bufferString = new QString();
+
+	osg::Vec3 v3LocalP1, v3LocalP2;
+
+	m_pCoordinateTransform->Transform(p1, v3LocalP1);
+	m_pCoordinateTransform->Transform(p2, v3LocalP2);
+	p1.x() < p2.x() ? (v3LocalP1.set(v3LocalP1.x()/1000, v3LocalP1.y()/1000, v3LocalP1.z()/1000), v3LocalP2.set(v3LocalP2.x()/1000, v3LocalP2.y()/1000, v3LocalP2.z()/1000)) 
+		: (v3LocalP1.set(v3LocalP2.x()/1000, v3LocalP2.y()/1000, v3LocalP2.z()/1000), v3LocalP2.set(v3LocalP1.x()/1000, v3LocalP1.y()/1000, v3LocalP1.z()/1000));
+
 	long m_x, m_y, m_z;
-	int lonFistIndex(0), latFistIndex(0), lonLastIndex(0), latLastIndex(0);
+	int iLeftX(400), iLeftY(400);
 	//获得维度
 	const int iDims = pNcFile->num_dims();
 	for(int i = 0; iDims > i; i++)
 	{
 		NcDim* pNcDim = pNcFile->get_dim(i);
 		std::string strDimName = pNcDim->name();
-		if(strDimName == "longtitude")
+		if(strDimName == "time")
 		{
-			m_x = pNcDim->size();
+
 		}
-		else if(strDimName == "latitude")
+		else if(strDimName == "height")
+		{
+			m_z = pNcDim->size();
+		}
+		else if(strDimName == "Y")
 		{
 			m_y = pNcDim->size();
 		}
-		else if(strDimName == "layer")
+		else if(strDimName == "X")
 		{
-			m_z = pNcDim->size();
+			m_x = pNcDim->size();
 		}
 		else
 		{
 			//pNcFile->close();
-			return 0;
+			return false;
 		}
 	}
 	//获得属性
 	const int iAtts = pNcFile->num_atts();
 
-	float fFirstLon = 0;
-	float fFirstLat = 0;
-	float fLastLon = 0;
-	float fLastLat = 0;
+	float fOriginLon = 0;
+	float fOriginLat = 0;
 
 	for(int i = 0; iAtts > i; i++)
 	{
 		NcAtt* pNcAtt = pNcFile->get_att(i);
 		std::string strAttName = pNcAtt->name();
-		if(strAttName.find("FirstLon") != std::string::npos)
+		if(strAttName.find("OriginX") != std::string::npos)
 		{
-			fFirstLon = pNcAtt->as_float(0);
+			fOriginLon = pNcAtt->as_float(0);
 		}
-		else if(strAttName.find("FirstLat") != std::string::npos)
+		else if(strAttName.find("OriginY") != std::string::npos)
 		{
-			fFirstLat = pNcAtt->as_float(0);
-		}
-		else if(strAttName.find("LastLon") != std::string::npos)
-		{
-			fLastLon = pNcAtt->as_float(0);
-		}
-		else if(strAttName.find("LastLat") != std::string::npos)
-		{
-			fLastLat = pNcAtt->as_float(0);
+			fOriginLat = pNcAtt->as_float(0);
 		}
 	}
 
-	/*lonFistIndex = (p1.x() - fFirstLon) * 100;
-	lonLastIndex = (p2.x() - fFirstLon) * 100;
+	osg::Vec3 OriginLonLat(fOriginLon, fOriginLat, 0);
 
-	latFistIndex = (p2.y() - fFirstLat) * 100;
-	latLastIndex = (p1.y() - fFirstLat) * 100;*/
+	osg::Vec3 OriginXY;
 
-	lonFistIndex = (p1.x() - fFirstLon)/0.01;
-	lonLastIndex = (p2.x() - fFirstLon)/0.01;
+	m_pCoordinateTransform->Transform(OriginLonLat, OriginXY);
 
-	latFistIndex = (p2.y() - fFirstLat)/0.01;
-	latLastIndex = (p1.y() - fFirstLat)/0.01;
+	float* pfHeight = nullptr;
+	float* pfY = nullptr;
+	float* pfX = nullptr;
 
-	int m_xLen(lonLastIndex - lonFistIndex + 1), m_yLen(latLastIndex - latFistIndex + 1);
+	float fheightFV = 0;
+	float fYFV = 0;
+	float fXFV = 0;
+	float fValueFV = 0;
+	float fMisingValue = 0;
 
-	//QImage* pImage = new QImage(m_xLen, m_yLen, QImage::Format_RGB32);
-	//pImage->fill(QColor(255, 255, 255));
-	QFile csvFile(strExortFile);
-	if(!csvFile.open(QIODevice::Truncate|QIODevice::WriteOnly|QIODevice::Text)) return 0;
-	QTextStream ts(&csvFile);
-	/*ts<<QString::fromLocal8Bit("lon")<<QString::fromLocal8Bit(",")
-		<<QString::fromLocal8Bit("lat")<<QString::fromLocal8Bit(",")
-		<<QString::fromLocal8Bit("la")<<QString::fromLocal8Bit(",")
-		<<QString::fromLocal8Bit("value")<<endl;*/
-	CSV_LINE(ts, QString::fromLocal8Bit("lon"), QString::fromLocal8Bit("lat"), QString::fromLocal8Bit("layer"), QString::fromLocal8Bit("value"));
-	QString* bufferString = new QString();
+	osg::Matrix moveOrigin;
+	moveOrigin.makeTranslate(osg::Vec3(-OriginXY.x()/1000, 0, -OriginXY.z()/1000));
+
+	osg::Vec3 v3ResultP1 = v3LocalP1 * moveOrigin;
+	osg::Vec3 v3ResultP2 = v3LocalP2 * moveOrigin;
+
+	int p1x = iLeftX + v3ResultP1.x();
+	int p1y = iLeftY + v3ResultP1.z();
+
+	int p2x = iLeftX + v3ResultP2.x();
+	int p2y = iLeftY + v3ResultP2.z();
+
+	int m_xLen(abs(p1x - p2x) + 1), m_yLen(abs(p1y - p2y) + 1);
+
 	const int iVars = pNcFile->num_vars();
 	for(int i = 0; i < iVars; ++i)
 	{
 		NcVar* pVar =  pNcFile->get_var(i);
 		if(!pVar)
 		{
-			return 0;
+			//pNcFile->close();
+			return false;
 		}
 		QString name = pVar->name();
-
-		if(name == QString::fromLocal8Bit("reflectivity"))
+		if(name == QString::fromLocal8Bit("time"))
 		{
-			ncbyte* pData = new ncbyte[m_xLen];
-			
-			for(int ii = 0; m_z > ii; ii++)
+
+		}
+		else if(name == QString::fromLocal8Bit("height"))
+		{
+			long lCur = 0;
+			NcAtt* pAtt = pVar->get_att("_FillValue");
+			NcValues* pNcVals = pAtt->values();
+			fheightFV = pNcVals[0].as_float(0);
+
+			long lVarNum = pVar->num_vals();
+			pfHeight = new float[lVarNum];
+			memset(pfHeight, 0, sizeof(pfHeight) * lVarNum);
+
+			pVar->set_cur(lCur);
+			pVar->get(pfHeight, lVarNum);
+
+
+		}
+		else if(name == QString::fromLocal8Bit("Y"))
+		{
+			long lCur = 0;
+
+			NcAtt* pAtt = pVar->get_att("_FillValue");
+			NcValues* pNcVals = pAtt->values();
+			fYFV = pNcVals[0].as_float(0);
+
+			long lVarNum = pVar->num_vals();
+			pfY = new float[lVarNum];
+			memset(pfY, 0, sizeof(pfY) * lVarNum);
+
+			pVar->set_cur(lCur);
+			pVar->get(pfY, lVarNum);
+
+			for(int iyn = 0; iyn < m_y; iyn++)
 			{
-				long lCur[3] = {0};
+				pfY[iyn] = pfY[iyn] * 1000;
+			}
+		}
+		else if(name == QString::fromLocal8Bit("X"))
+		{
+			long lCur = 0;
 
-				if(iMode > -1 && iMode < m_z)
+			NcAtt* pAtt = pVar->get_att("_FillValue");
+			NcValues* pNcVals = pAtt->values();
+			fXFV = pNcVals[0].as_float(0);
+
+			long lVarNum = pVar->num_vals();
+			pfX = new float[lVarNum];
+			memset(pfX, 0, sizeof(pfX) * lVarNum);
+
+			pVar->set_cur(lCur);
+			pVar->get(pfX, lVarNum);
+
+			for(int ixn = 0; ixn < m_x; ixn++)
+			{
+				pfX[ixn] = pfX[ixn] * 1000;
+			}
+		}
+		else if(name == QString::fromLocal8Bit("DBZ"))
+		{
+			if(iMode == -1)
+			{
+				//获得维度
+				//const int iDims = pVar->num_dims();
+
+				NcAtt* pAtt = pVar->get_att("_FillValue");
+				NcValues* pNcVals = pAtt->values();
+				fValueFV = pNcVals[0].as_float(0);
+
+				NcAtt* pAtt2 = pVar->get_att("missing_value");
+				NcValues* pNcVals2 = pAtt2->values();
+				fMisingValue = pNcVals2[0].as_float(0);
+
+				osg::ref_ptr<osg::Vec3Array> pVec3Array = new osg::Vec3Array;
+				osg::ref_ptr<osg::Vec4Array> pColorArray = new osg::Vec4Array;
+
+				float* pData = new float[m_xLen];
+				float* MaxValues = new float[m_xLen * m_yLen];
+				int maxHeight = -1;
+				float maxDBZ = -5;
+				//memset(MaxValues, 0xff, sizeof(float) * m_x * m_y);
+				for(int iFillIndex = 0; iFillIndex < m_xLen * m_yLen; iFillIndex++)
 				{
-					if(ii != iMode)
-						continue;
+					MaxValues[iFillIndex] = -100.0f;
 				}
+				float fInvalid = -100.0f;
 
-				lCur[0] = ii;
-				
-				bufferString->clear();
-				for(int iii = 0; iii < m_yLen; iii++)
+				for(int ii = 0; m_z > ii; ii++)
 				{
-					lCur[1] = latFistIndex + iii;
-					lCur[2] = lonFistIndex;
-					pVar->set_cur(lCur);
-
-					long laCount[3] = {0};
-					laCount[0] = 1;
-					laCount[1] = 1;
-					laCount[2] = m_xLen;
-
-					memset(pData, 0, sizeof(ncbyte) * m_xLen);
-					pVar->get(pData, laCount);
-
-					for(int j = 0; j < m_xLen; j++)
+					long lCur[4] = {0};
+					lCur[0] = 0;
+					if(iMode > -1 && iMode < m_z)
 					{
-						ncbyte shN = *(pData + j);
+						if(ii != iMode)
+							continue;
+					}
 
-						float fLon = p1.x() + 0.01 * j;
-						float fLat = p1.y() - 0.01 * iii;
-						int fLayer = 500 + 500 * ii;
-						ncbyte fValue = shN;
+					lCur[1] = ii;
 
-						QString v1("%1"), v2("%1"), v3("%1"), v4("%1");
-						v1 = v1.arg((double)fLon, 0, 'f', 2);
-						v2 = v2.arg((double)fLat, 0, 'f', 2);
-						v3 = v3.arg((int)fLayer);
-						v4 = v4.arg((int)fValue);
+					for(int iii = 0; iii < m_yLen; iii++)
+					{
+						lCur[2] = p1y - iii;
+						lCur[3] = p1x;
+						pVar->set_cur(lCur);
 
-						QString temp = MAKE_CSV_LINE(v1, v2, v3, v4);
-						bufferString->push_back(temp);
-						//CSV_LINE(ts, v1, v2, v3, v4);
+						long laCount[4] = {0};
+						laCount[0] = 1;
+						laCount[1] = 1;
+						laCount[2] = 1;
+						laCount[3] = m_xLen;
+
+						memset(pData, 0, sizeof(float) * m_xLen);
+						pVar->get(pData, laCount);
+
+						for(int j = 0; j < m_xLen; j++)
+						{
+							float realValue = *(pData + j);
+
+							if(abs(realValue - fMisingValue) < 0.00001)
+								continue;
+
+							float isMax = *(MaxValues + m_xLen * iii + j);
+							if(isMax < realValue || (isMax - (fInvalid)) < 0.00001)
+							{
+								*(MaxValues + m_xLen * iii + j) = realValue;
+							}
+						}
 					}
 				}
 
-				ts<<*bufferString;
-			}
+				for(int c = 0; c < m_yLen; c++)
+				{
+					double dY = v3LocalP1.z() + c;
+					for(int r = 0; r < m_xLen; r++)
+					{
+						double dX = v3LocalP1.x() + r;
 
-			delete[] pData;
+						ncbyte isMax = *(MaxValues + m_xLen * c + r);
+
+						goto_gis::Proj4Transform proj4;
+						proj4.setSourceCRS(m_pCoordinateTransform->getDesCRS());
+						proj4.setDestCRS(m_pCoordinateTransform->getSourceCRS());
+						osg::Vec3 latLonPoint = proj4.Transform(osg::Vec3(dX * 1000, 0, dY * 1000));
+
+						QString v1("%1"), v2("%1"), v3("%1"), v4("%1");
+								v1 = v1.arg(latLonPoint.x(), 0, 'f', 2);
+								v2 = v2.arg(latLonPoint.y(), 0, 'f', 2);
+								v3 = v3.arg(0);
+								v4 = v4.arg(isMax);
+
+						QString temp = MAKE_CSV_LINE(v1, v2, v3, v4);
+						bufferString->push_back(temp);
+					}
+
+					ts<<*bufferString;
+					bufferString->clear();
+				}
+				delete[] MaxValues;
+				delete[] pData;
+				delete[] pfX;
+				delete[] pfY;
+				delete[] pfHeight;
+			}
+			else
+			{
+				//获得维度
+				//const int iDims = pVar->num_dims();
+
+				NcAtt* pAtt = pVar->get_att("_FillValue");
+				NcValues* pNcVals = pAtt->values();
+				fValueFV = pNcVals[0].as_float(0);
+
+				NcAtt* pAtt2 = pVar->get_att("missing_value");
+				NcValues* pNcVals2 = pAtt2->values();
+				fMisingValue = pNcVals2[0].as_float(0);
+
+				osg::ref_ptr<osg::Vec3Array> pVec3Array = new osg::Vec3Array;
+				osg::ref_ptr<osg::Vec4Array> pColorArray = new osg::Vec4Array;
+
+				float* pData = new float[m_xLen];
+				int maxHeight = -1;
+				float maxDBZ = -5;
+			
+				float fInvalid = -100.0f;
+
+				if(upIndex > m_z)
+				{
+					upIndex = m_z;
+				}
+				for(int ii = downIndex; upIndex + 1 > ii; ii++)
+				{
+					int fLayer = 500 + 1000 * ii;
+
+					memset(pData, 0, m_xLen);
+					long lCur[4] = {0};
+					lCur[0] = 0;
+					if(iMode > -1 && iMode < m_z)
+					{
+						if(ii != iMode)
+							continue;
+					}
+
+					lCur[1] = ii;
+
+					for(int iii = 0; iii < m_yLen; iii++)
+					{
+						lCur[2] = p1y - iii;
+						lCur[3] = p1x;
+						pVar->set_cur(lCur);
+
+						long laCount[4] = {0};
+						laCount[0] = 1;
+						laCount[1] = 1;
+						laCount[2] = 1;
+						laCount[3] = m_xLen;
+						double dOutY = v3LocalP1.z() + iii;
+
+						memset(pData, 0, sizeof(float) * m_xLen);
+						pVar->get(pData, laCount);
+
+						for(int j = 0; j < m_xLen; j++)
+						{
+							float realValue = *(pData + j);
+
+							//if(abs(realValue - fMisingValue) < 0.00001)
+								//realValue = fMisingValue;
+							double dOutX = v3LocalP1.x() + j;
+						
+
+							goto_gis::Proj4Transform proj4;
+							proj4.setSourceCRS(m_pCoordinateTransform->getDesCRS());
+							proj4.setDestCRS(m_pCoordinateTransform->getSourceCRS());
+							osg::Vec3 latLonPoint = proj4.Transform(osg::Vec3(dOutX * 1000, 0, dOutY * 1000));
+
+							QString v1("%1"), v2("%1"), v3("%1"), v4("%1");
+								v1 = v1.arg(latLonPoint.x(), 0, 'f', 2);
+								v2 = v2.arg(latLonPoint.y(), 0, 'f', 2);
+								v3 = v3.arg((int)fLayer);
+								v4 = v4.arg(realValue);
+
+								QString temp = MAKE_CSV_LINE(v1, v2, v3, v4);
+								bufferString->push_back(temp);
+						}
+					}
+
+					ts<<*bufferString;
+					bufferString->clear();
+				}
+
+				delete[] pData;
+				delete[] pfX;
+				delete[] pfY;
+				delete[] pfHeight;
+				delete bufferString;
+			}
+			
 		}
 	}
-
-	delete bufferString;
-	csvFile.close();
 	return 1;
 }
 
@@ -1949,7 +2160,7 @@ int MakeTextureImps::ExportSectionFile(NcFile *pNcFile, osg::Vec3 p1, osg::Vec3 
 						v1 = v1.arg(latLonPoint.x(), 0, 'f', 2);
 						v2 = v2.arg(latLonPoint.y(), 0, 'f', 2);
 						v3 = v3.arg((int)fLayer);
-						v4 = v4.arg((int)pValue);
+						v4 = v4.arg(pValue);
 
 						QString temp = MAKE_CSV_LINE(v1, v2, v3, v4);
 						bufferString->push_back(temp);
