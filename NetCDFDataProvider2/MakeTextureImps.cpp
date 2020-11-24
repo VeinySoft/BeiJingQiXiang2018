@@ -1832,7 +1832,7 @@ int MakeTextureImps::ExportPartNcFile(NcFile *pNcFile, osg::Vec3 p1, osg::Vec3 p
 
 				for(int c = 0; c < m_yLen; c++)
 				{
-					double dY = v3LocalP1.z() + c;
+					double dY = v3LocalP1.z() - c;
 					for(int r = 0; r < m_xLen; r++)
 					{
 						double dX = v3LocalP1.x() + r;
@@ -1915,7 +1915,7 @@ int MakeTextureImps::ExportPartNcFile(NcFile *pNcFile, osg::Vec3 p1, osg::Vec3 p
 						laCount[1] = 1;
 						laCount[2] = 1;
 						laCount[3] = m_xLen;
-						double dOutY = v3LocalP1.z() + iii;
+						double dOutY = v3LocalP1.z() - iii;
 
 						memset(pData, 0, sizeof(float) * m_xLen);
 						pVar->get(pData, laCount);

@@ -127,7 +127,7 @@ void FlightAndRasterWindow::slot_MatchData(bool)
 		return;
 	}
 	if(m_bMatched) return;
-	QString strDTFormat = QString::fromLocal8Bit("yyyy/MM/dd-HH:mm:ss");
+	QString strDTFormat = QString::fromLocal8Bit("yyyy/MM/dd-H:mm:ss");
 	int ii = m_iDTSelectStartIndex;
 	//QDateTime startDT;
 	QDateTime endDT;
@@ -139,6 +139,11 @@ void FlightAndRasterWindow::slot_MatchData(bool)
 		{
 			QListWidgetItem* item = m_setup.DateTimeListWidget->item(ii);
 			QDateTime currentDT = QDateTime::fromString(item->text(), strDTFormat);
+			if(!currentDT.isValid())
+			{
+				QMessageBox::warning(this, QString::fromLocal8Bit("匹配数据发生错误"), QString::fromLocal8Bit("轨迹文件的时间格式有错误,正确格式:2020/01/01-1:01:01"));
+				return;
+			}
 			if(bIsSet)
 			{
 				//startDT = currentDT;
@@ -234,7 +239,7 @@ void FlightAndRasterWindow::slot_DrawRaster(bool)
 	int iIndex1 = strText.indexOf("(");
 	QString strName = strText.left(iIndex1);
 
-	QString strDTFormat = QString::fromLocal8Bit("yyyy/MM/dd-HH:mm:ss");
+	QString strDTFormat = QString::fromLocal8Bit("yyyy/MM/dd-H:mm:ss");
 	QDateTime currentDT = QDateTime::fromString(strName, strDTFormat);
 	QString strTest = currentDT.toString(strDTFormat);
 
@@ -478,7 +483,7 @@ void FlightAndRasterWindow::slot_LoadFlightPath(bool)
 void FlightAndRasterWindow::slot_LoadFlightPathAndAutoMatch(bool)
 {
 	//slot_LoadFlightPath(true);
-	QString strDTFormat1 = QString::fromLocal8Bit("yyyy/MM/dd-HH:mm:ss");
+	QString strDTFormat1 = QString::fromLocal8Bit("yyyy/MM/dd-H:mm:ss");
 	QString strDTFormat2 = QString::fromLocal8Bit("yyyyMMddHHmmss");
 
 	if(m_pFileList->size() > 0 && m_setup.DateTimeListWidget->count() > 0)
@@ -588,22 +593,46 @@ void FlightAndRasterWindow::slot_MatchFixPointData(bool)
 	m_pControlorInterface = m_pMainWindow->GetControlorInterface();
 }
 
-void WriteFile(const QString& strFile, double* data, int rows, int cols)
+void FlightAndRasterWindow::WriteFile(const QString& strFile, double* data, int rows, int cols)
 {
 	QFile writeFile(strFile);
 
 	if(writeFile.open(QFile::WriteOnly | QFile::Truncate))
 	{
+		QString tempString;
 		QTextStream textSteam(&writeFile);
 		for (int j = 0; j < cols; j++)
 		{
+			QString strText = m_setup.DateTimeListWidget->item(m_iDTSelectStartIndex + j)->text();
+			
+			QString strDateTime = strText.mid(1, strText.length() - 2);
+			QDateTime tempDT = QDateTime::fromString(strDateTime, "yyyyMMddhhmmss");
+			strDateTime = tempDT.toString("yyyy/MM/dd-HH:mm:ss");
+			QString strLon = m_setup.lineEdit->text();
+			QString strLat = m_setup.lineEdit_2->text();
+
 			for (int i = 0; i < rows; i++)
 			{
-				QString outText = QString("%1     ").arg(*(data + j * rows + i));
-				textSteam<<outText;
-			
+				int iHeight = 500 + (i * 1000);
+				
+				double iVV = *(data + j * rows + i);
+				if((int)iVV - 100 == 0)
+				{
+					iVV = -31.376;
+				}
+				QString v0("%1"), v1("%1"), v2("%1"), v3("%1"), v4("%1");
+						v0 = strDateTime;
+						v1 = v1.arg(strLon);
+						v2 = v2.arg(strLat);
+						v3 = v3.arg(iHeight);
+						v4 = v4.arg(iVV);
+
+				QString temp = v0 + "," + v1 + "," + v2 + "," + v3 + "," + v4 + "\n";
+				tempString.push_back(temp);
 			}
-			textSteam<<endl;
+			
+			textSteam<<tempString;
+			tempString.clear();
 		}
 		writeFile.close();
 	}
@@ -916,7 +945,7 @@ void FlightAndRasterWindow::slot_ExportDrawFlightRaster(bool)
 void FlightAndRasterWindow::slot_exportDrawFixRaster(bool)
 {
 	QString strFileName = QFileDialog::getSaveFileName(this
-			, QString::fromLocal8Bit("导出雷达数据"), "", "txt (*.txt)");
+			, QString::fromLocal8Bit("导出雷达数据"), "", "csv (*.csv)");
 
 	if(strFileName.size() > 0)
 	{

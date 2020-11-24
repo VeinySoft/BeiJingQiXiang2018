@@ -25,7 +25,7 @@ void SectionImageDialog::slot_SaveImage( bool )
 	{
 		QPixmap ipx =  m_pPixmapItem->pixmap();
 		QString strFileName = QFileDialog::getSaveFileName(this
-			, QString::fromLocal8Bit("导出图片"), "", "JPEG (*.jpg *.jpeg)");
+			, QString::fromLocal8Bit("导出图片"), "", "BMP (*.bmp)");
 		if(strFileName.size() > 0)
 			ipx.save(strFileName);
 	}

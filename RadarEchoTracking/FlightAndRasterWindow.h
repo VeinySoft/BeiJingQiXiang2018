@@ -29,7 +29,7 @@ public:
 	void LinearInterpolation1D(double* srcBuff, size_t countSrc, double* destBuff, size_t countDest);
 	void AutoSaveConfig();
 	void SaveData(double* pData, size_t rows, size_t cols);
-
+	void WriteFile(const QString& strFile, double* data, int rows, int cols);
 private:
 	FUNDEF_OpenRasterFile m_funOpenRasterFile;
 	FUNDEF_GetPlotWidget m_funGetPlotWidget;

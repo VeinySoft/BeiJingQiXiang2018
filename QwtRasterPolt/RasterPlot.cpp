@@ -175,6 +175,7 @@ void RasterPlot::exportPlot(const QString& fileName)
 {
     QwtPlotRenderer renderer;
     renderer.exportTo( this, fileName);
+	//renderer.renderDocument(this, fileName, QSizeF(800, 600));
 }
 
 void RasterPlot::setResampleMode( int mode )
